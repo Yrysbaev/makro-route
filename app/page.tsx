@@ -196,7 +196,7 @@ export default function Home() {
       <main className={styles.main}>
         <header className={styles.header}>
           <div>
-            <h1>Piggy Route MVP</h1>
+            <h1>Makro Route MVP</h1>
             <p>Plan 15-20 wholesale deliveries in minutes.</p>
           </div>
           <div className={styles.counter}>Selected ({selectedIds.length})</div>
