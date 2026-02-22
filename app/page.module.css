@@ -1,7 +1,7 @@
 .page {
   min-height: 100vh;
-  background: #f4f5f7;
-  color: #1f2937;
+  background: #f2f6fb;
+  color: #0d2f52;
   font-family: var(--font-geist-sans);
 }
 
@@ -19,18 +19,31 @@
   margin-bottom: 20px;
 }
 
+.headerBrand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.headerLogo {
+  border-radius: 999px;
+  border: 2px solid #0d4f8f;
+  background: #ffffff;
+}
+
 .header h1 {
   margin: 0;
   font-size: 28px;
+  color: #0d4f8f;
 }
 
 .header p {
   margin: 6px 0 0;
-  color: #6b7280;
+  color: #455a73;
 }
 
 .counter {
-  background: #111827;
+  background: #0d4f8f;
   color: #ffffff;
   border-radius: 999px;
   padding: 8px 14px;
@@ -45,7 +58,7 @@
 
 .card {
   background: #ffffff;
-  border: 1px solid #e5e7eb;
+  border: 1px solid #d4e0ee;
   border-radius: 14px;
   padding: 14px;
   min-height: 420px;
@@ -61,20 +74,32 @@
 
 .search {
   width: 100%;
-  border: 1px solid #d1d5db;
+  border: 1px solid #9bb7d3;
   border-radius: 10px;
   padding: 10px 12px;
   outline: none;
 }
 
 .search:focus {
-  border-color: #2563eb;
+  border-color: #0d4f8f;
+}
+
+.inlineControls {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.fieldLabel {
+  font-size: 12px;
+  font-weight: 600;
+  color: #0d2f52;
 }
 
 .meta {
   margin: 0;
   font-size: 12px;
-  color: #6b7280;
+  color: #455a73;
 }
 
 .list {
@@ -87,7 +112,7 @@
 }
 
 .row {
-  border: 1px solid #e5e7eb;
+  border: 1px solid #d4e0ee;
   border-radius: 10px;
   padding: 10px;
   display: flex;
@@ -99,7 +124,7 @@
 .row p {
   margin: 4px 0 0;
   font-size: 12px;
-  color: #6b7280;
+  color: #455a73;
 }
 
 .btnPrimary,
@@ -117,27 +142,27 @@
 }
 
 .btnPrimary {
-  background: #2563eb;
+  background: #0d4f8f;
   color: white;
 }
 
 .btnMuted {
-  background: #eef2f7;
-  color: #111827;
+  background: #e7edf5;
+  color: #0d2f52;
 }
 
 .btnSuccess {
-  background: #16a34a;
+  background: #0a7e43;
   color: #ffffff;
 }
 
 .btnWarn {
-  background: #d97706;
+  background: #d6004a;
   color: #ffffff;
 }
 
 .btnCreate {
-  background: #111827;
+  background: #d6004a;
   color: #ffffff;
   margin-top: auto;
 }
@@ -156,13 +181,13 @@
 .btnText {
   background: transparent;
   border: none;
-  color: #2563eb;
+  color: #0d4f8f;
   font-weight: 600;
   cursor: pointer;
 }
 
 .stopCard {
-  border: 1px solid #e5e7eb;
+  border: 1px solid #d4e0ee;
   border-radius: 10px;
   padding: 10px;
 }
@@ -184,7 +209,7 @@
   font-weight: 700;
   text-transform: uppercase;
   padding: 4px 8px;
-  background: #e5e7eb;
+  background: #e7edf5;
 }
 
 .badge[data-status="delivered"] {
@@ -193,8 +218,8 @@
 }
 
 .badge[data-status="skipped"] {
-  background: #ffedd5;
-  color: #9a3412;
+  background: #fde2eb;
+  color: #a00038;
 }
 
 .actions {
@@ -205,9 +230,21 @@
 }
 
 .driverCard {
-  border: 1px solid #e5e7eb;
+  border: 1px solid #d4e0ee;
   border-radius: 10px;
   padding: 12px;
+}
+
+.driverListHeader {
+  margin-top: 10px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #0d2f52;
+}
+
+.activeStopCard {
+  border-color: #0d4f8f;
+  box-shadow: 0 0 0 1px #0d4f8f;
 }
 
 .bigNumber {
@@ -218,7 +255,45 @@
 
 .empty {
   margin-top: 12px;
-  color: #6b7280;
+  color: #455a73;
+}
+
+.stats {
+  border: 1px solid #d4e0ee;
+  border-radius: 10px;
+  padding: 10px;
+  background: #f7fbff;
+}
+
+.stats p {
+  margin: 0;
+  font-size: 13px;
+  color: #0d2f52;
+}
+
+.stats p + p {
+  margin-top: 6px;
+}
+
+.statsNote {
+  margin-top: 8px !important;
+  font-size: 12px !important;
+  color: #455a73 !important;
+}
+
+.deltaBetter {
+  color: #166534;
+}
+
+.deltaWorse {
+  color: #a00038;
+}
+
+.errorText {
+  margin-top: 8px;
+  color: #a00038;
+  font-size: 12px;
+  font-weight: 600;
 }
 
 @media (max-width: 1024px) {

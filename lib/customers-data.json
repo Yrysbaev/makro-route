@@ -1,0 +1,3539 @@
+[
+  {
+    "id": "customer-1",
+    "name": "01 Adana Turkish Grill",
+    "addressLine1": "Westheimer Road",
+    "city": "Houston",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77063"
+  },
+  {
+    "id": "customer-2",
+    "name": "101 DISTRIBUTORS GA LLC",
+    "addressLine1": "4721 Lewis Rd.",
+    "city": "Stone Mountain",
+    "state": "GA",
+    "country": "USA",
+    "zip": "30083"
+  },
+  {
+    "id": "customer-3",
+    "name": "2015 A AND B, LLC",
+    "addressLine1": "8026 KITTY HAWK RD",
+    "city": "Richmond",
+    "state": "TX",
+    "country": "USA",
+    "zip": "78109"
+  },
+  {
+    "id": "customer-4",
+    "name": "2025 Busy BEE, LLC",
+    "addressLine1": "22255 US HIGHWAY 281 N STE 101",
+    "city": "San Antio",
+    "state": "TX",
+    "country": "USA",
+    "zip": "78258"
+  },
+  {
+    "id": "customer-5",
+    "name": "48 philly's",
+    "addressLine1": "913 w pioneer pkwy",
+    "city": "Arlington",
+    "state": "TX",
+    "country": "USA",
+    "zip": "76013"
+  },
+  {
+    "id": "customer-6",
+    "name": "7 eleven fort worth",
+    "addressLine1": "5384 Mcpherson Blvd, fort Worth,",
+    "city": "Fort Worth",
+    "state": "TX",
+    "country": "USA",
+    "zip": "76123"
+  },
+  {
+    "id": "customer-7",
+    "name": "A Z International Fine Foods",
+    "addressLine1": "13461 Tiger Bend Rd",
+    "city": "Baton Rouge",
+    "state": "LA",
+    "country": "USA",
+    "zip": "70817"
+  },
+  {
+    "id": "customer-8",
+    "name": "A1 wholesale",
+    "addressLine1": "Southwell Road",
+    "city": "Arlington",
+    "state": "TX",
+    "country": "USA",
+    "zip": "75229"
+  },
+  {
+    "id": "customer-9",
+    "name": "AAA Wholesale Supply",
+    "addressLine1": "1260 powder plant road Bessemer",
+    "city": "Bessemer",
+    "state": "AL",
+    "country": "USA",
+    "zip": "35022"
+  },
+  {
+    "id": "customer-10",
+    "name": "AAA Wholesale Supply (HOUSTON)",
+    "addressLine1": "5615 Savoy Dr Unit A",
+    "city": "Houston",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77036"
+  },
+  {
+    "id": "customer-11",
+    "name": "AB World Food Market LLC",
+    "addressLine1": "Shadow Creek Parkway Suite 109",
+    "city": "Pearland",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77584"
+  },
+  {
+    "id": "customer-12",
+    "name": "ACACIA INT’L GROCERY BAKERY AND HALAL MEAT",
+    "addressLine1": "11821 Wilcrest Dr.",
+    "city": "Houston",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77031"
+  },
+  {
+    "id": "customer-13",
+    "name": "Ace Distributors llc",
+    "addressLine1": "1900 Premier row",
+    "city": "Orlando",
+    "state": "FL",
+    "country": "USA",
+    "zip": "32809"
+  },
+  {
+    "id": "customer-14",
+    "name": "AFGHAN ASIAN HALAL MARKET",
+    "addressLine1": "1750 Alma Rd #100",
+    "city": "Richardson",
+    "state": "TX",
+    "country": "USA",
+    "zip": "75081"
+  },
+  {
+    "id": "customer-15",
+    "name": "Afghan Halal Market (Mama) DFW",
+    "addressLine1": "1116 E Seminary Dr",
+    "city": "Fort Worth",
+    "state": "TX",
+    "country": "USA",
+    "zip": "76115"
+  },
+  {
+    "id": "customer-16",
+    "name": "Afghan Halal Market Texas (MANAN)",
+    "addressLine1": "1121 E Seminary Dr,v",
+    "city": "Fort Worth",
+    "state": "TX",
+    "country": "USA",
+    "zip": "76115"
+  },
+  {
+    "id": "customer-17",
+    "name": "AHMET SAKINAN",
+    "addressLine1": "11426 Robillard way RICHMOND 1142",
+    "city": "Richmond",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77407"
+  },
+  {
+    "id": "customer-18",
+    "name": "Al Aqsa Halal meat Market - Clear Lake",
+    "addressLine1": "17325 El Camino Real",
+    "city": "Houston",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77058"
+  },
+  {
+    "id": "customer-19",
+    "name": "Al Aqsa International Groceries",
+    "addressLine1": "2802 Old Spanish Trail",
+    "city": "Houston",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77054"
+  },
+  {
+    "id": "customer-20",
+    "name": "AL ASEEL GRILL AND CAFE",
+    "addressLine1": "8619 RICHMOND AVE. SUITE#100",
+    "city": "Houston",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77063"
+  },
+  {
+    "id": "customer-21",
+    "name": "Al Eman Halal Meat and Indo-Pak & Middle Eastern Grocery",
+    "addressLine1": "9001 Louetta Rd",
+    "city": "Spring",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77379"
+  },
+  {
+    "id": "customer-22",
+    "name": "Al Markaz",
+    "addressLine1": "1205 W. Trinity Mills Rd Suite 112",
+    "city": "Irving",
+    "state": "TX",
+    "country": "USA",
+    "zip": "75006"
+  },
+  {
+    "id": "customer-23",
+    "name": "Al Nimer Roastery",
+    "addressLine1": "815 S Sherman St",
+    "city": "Richardson",
+    "state": "TX",
+    "country": "USA",
+    "zip": "75081"
+  },
+  {
+    "id": "customer-24",
+    "name": "Al Nour Super Market",
+    "addressLine1": "1525 Lapalco Blvd",
+    "city": "Harvey",
+    "state": "LA",
+    "country": "USA",
+    "zip": "70058"
+  },
+  {
+    "id": "customer-25",
+    "name": "ALADDIN CAFE",
+    "addressLine1": "888 S Greenville Ave Suite 200",
+    "city": "Richardson",
+    "state": "TX",
+    "country": "USA",
+    "zip": "75081"
+  },
+  {
+    "id": "customer-26",
+    "name": "Alamir Market",
+    "addressLine1": "207 Martha St",
+    "city": "Richardson",
+    "state": "TX",
+    "country": "USA",
+    "zip": "76040"
+  },
+  {
+    "id": "customer-27",
+    "name": "Alamo City foods,Inc",
+    "addressLine1": "The Triangle, 4700 W Guadalupe St Suite#9, Austin, TX 78751",
+    "city": "Austin",
+    "state": "TX",
+    "country": "USA",
+    "zip": "78751"
+  },
+  {
+    "id": "customer-28",
+    "name": "Albaghdady Bakery & Café",
+    "addressLine1": "327 N Greenville Ave",
+    "city": "Richardson",
+    "state": "TX",
+    "country": "USA",
+    "zip": "75081"
+  },
+  {
+    "id": "customer-29",
+    "name": "AlBaraka Halal Meat & Grill Restaurant World Food Super Market",
+    "addressLine1": "17754 Farm to Market Rd 529",
+    "city": "Houston",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77095"
+  },
+  {
+    "id": "customer-30",
+    "name": "Ali Baba International Food Market",
+    "addressLine1": "9307 Wurzbach Rd",
+    "city": "San Antonio",
+    "state": "TX",
+    "country": "USA",
+    "zip": "78240"
+  },
+  {
+    "id": "customer-31",
+    "name": "ALI YILMAZ",
+    "addressLine1": "18234 Port Dundas Dr.",
+    "city": "Richmond",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77407"
+  },
+  {
+    "id": "customer-32",
+    "name": "ALL GOOD EAT LLC",
+    "addressLine1": "14 water wheel ln",
+    "city": "San Antonio",
+    "state": "TX",
+    "country": "USA",
+    "zip": "18045"
+  },
+  {
+    "id": "customer-33",
+    "name": "Almadina International Supermarket",
+    "addressLine1": "3210 Hillcroft St",
+    "city": "Houston",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77057"
+  },
+  {
+    "id": "customer-34",
+    "name": "Almarah Food - Austin",
+    "addressLine1": "12129 RR 620 N",
+    "city": "Austin",
+    "state": "TX",
+    "country": "USA",
+    "zip": "78750"
+  },
+  {
+    "id": "customer-35",
+    "name": "ALSAFA HALAL MEAT AND GRILL",
+    "addressLine1": "873 S Mason Rd",
+    "city": "Katy",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77450"
+  },
+  {
+    "id": "customer-36",
+    "name": "Altin Grocery",
+    "addressLine1": "1201 N Central Expy #19",
+    "city": "Plano",
+    "state": "TX",
+    "country": "USA",
+    "zip": "75075"
+  },
+  {
+    "id": "customer-37",
+    "name": "Amma Indian Grocery Store",
+    "addressLine1": "5601 Basswood Blvd #149",
+    "city": "Fort Worth",
+    "state": "TX",
+    "country": "USA",
+    "zip": "76137"
+  },
+  {
+    "id": "customer-38",
+    "name": "Amora Cafe",
+    "addressLine1": "635 Town Square Rd",
+    "city": "Garland",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77498"
+  },
+  {
+    "id": "customer-39",
+    "name": "ANA Distribution Inc.",
+    "addressLine1": "1429 W Hildebrand Ave Suite 106,",
+    "city": "San Antonio",
+    "state": "TX",
+    "country": "USA",
+    "zip": "78201"
+  },
+  {
+    "id": "customer-40",
+    "name": "Anatolia Mart Mediterranean & Turkish Food Market",
+    "addressLine1": "1144 N Plano Rd #107,",
+    "city": "Richardson",
+    "state": "TX",
+    "country": "USA",
+    "zip": "75081"
+  },
+  {
+    "id": "customer-41",
+    "name": "Andalucia Mediterranean grocery",
+    "addressLine1": "Morton Road",
+    "city": "Katy",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77493"
+  },
+  {
+    "id": "customer-42",
+    "name": "Angel Chicken Kitchen",
+    "addressLine1": "7632 Campbell Rd\r\n314",
+    "city": "Austin",
+    "state": "TX",
+    "country": "USA",
+    "zip": "75248"
+  },
+  {
+    "id": "customer-43",
+    "name": "Anka Foods",
+    "addressLine1": "123 Lehigh Dr Suite B",
+    "city": "Houston",
+    "state": "TX",
+    "country": "USA",
+    "zip": "07004"
+  },
+  {
+    "id": "customer-44",
+    "name": "Another Time & Place Grille",
+    "addressLine1": "925 Abrams Rd",
+    "city": "Richardson",
+    "state": "TX",
+    "country": "USA",
+    "zip": "75081"
+  },
+  {
+    "id": "customer-45",
+    "name": "Antepian Turkish Cuisine",
+    "addressLine1": "2141 W Park Blvd, Plano, TX 75075",
+    "city": "Plano",
+    "state": "TX",
+    "country": "USA",
+    "zip": "75075"
+  },
+  {
+    "id": "customer-46",
+    "name": "Apex Quartz USA Inc",
+    "addressLine1": "9618 W Tidwell Rd",
+    "city": "Houston",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77041"
+  },
+  {
+    "id": "customer-47",
+    "name": "APIL SERVICES LLC",
+    "addressLine1": "1700 Bryant Dr Ste 102",
+    "city": "Round Rock",
+    "state": "TX",
+    "country": "USA",
+    "zip": "78664"
+  },
+  {
+    "id": "customer-48",
+    "name": "Apna Bazaar Grocery and Grill",
+    "addressLine1": "2000 Old Denton Rd Apt 104",
+    "city": "Carrollton",
+    "state": "TX",
+    "country": "USA",
+    "zip": "75007"
+  },
+  {
+    "id": "customer-49",
+    "name": "Arabisca Restaurant",
+    "addressLine1": "18039 FM 529, , TX",
+    "city": "Houston",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77433"
+  },
+  {
+    "id": "customer-50",
+    "name": "Ardy's Grill",
+    "addressLine1": "15615 Quorum Dr",
+    "city": "Addison",
+    "state": "TX",
+    "country": "USA",
+    "zip": "75001"
+  },
+  {
+    "id": "customer-51",
+    "name": "AREL LLC",
+    "addressLine1": "9102 Fm 2920 Apt.9108",
+    "city": "Tomball",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77375"
+  },
+  {
+    "id": "customer-52",
+    "name": "Arkansas Culture and Dialog center",
+    "addressLine1": "1501 market street",
+    "city": "Little Rock",
+    "state": "AR",
+    "country": "USA",
+    "zip": "72211"
+  },
+  {
+    "id": "customer-53",
+    "name": "Art masterclass-Dallas",
+    "addressLine1": "3440 Sojourn Dr Apt 200",
+    "city": "Carrollton",
+    "state": "TX",
+    "country": "USA",
+    "zip": "75006"
+  },
+  {
+    "id": "customer-54",
+    "name": "ARWA Yemeni cafe Austine",
+    "addressLine1": "11331 N Lamar Blvd, Austin, TX",
+    "city": "Austine",
+    "state": "TX",
+    "country": "USA",
+    "zip": "78753"
+  },
+  {
+    "id": "customer-55",
+    "name": "Arwa Yemeni Coffee",
+    "addressLine1": "888 S Greenville Ave Suite 223",
+    "city": "Richardson",
+    "state": "TX",
+    "country": "USA",
+    "zip": "75081"
+  },
+  {
+    "id": "customer-56",
+    "name": "As salaam meat",
+    "addressLine1": "3418 higway 6 south\r\n183",
+    "city": "Plano",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77082"
+  },
+  {
+    "id": "customer-57",
+    "name": "ASIAN GROCERY AND HALAL MEAT",
+    "addressLine1": "2763 E ELDORADO PKWY SUITE 115",
+    "city": "Little Elm",
+    "state": "TX",
+    "country": "USA",
+    "zip": "75068"
+  },
+  {
+    "id": "customer-58",
+    "name": "Atlas foundation",
+    "addressLine1": "862 O'Neal Ln",
+    "city": "Baton Rouge",
+    "state": "LA",
+    "country": "USA",
+    "zip": "70816"
+  },
+  {
+    "id": "customer-59",
+    "name": "Austin European Market",
+    "addressLine1": "601 E Whitestone Blvd Suite#512",
+    "city": "Sugar Land",
+    "state": "TX",
+    "country": "USA",
+    "zip": "78613"
+  },
+  {
+    "id": "customer-60",
+    "name": "Austin Skyline Foundation",
+    "addressLine1": "2650 Gattis School Rd Ste 700",
+    "city": "Round Rock",
+    "state": "TX",
+    "country": "USA",
+    "zip": "78664"
+  },
+  {
+    "id": "customer-61",
+    "name": "Authentic Turkish Food",
+    "addressLine1": "2615 Preston Rd",
+    "city": "Frisco",
+    "state": "TX",
+    "country": "USA",
+    "zip": "75034"
+  },
+  {
+    "id": "customer-62",
+    "name": "Avesta Persian Grill",
+    "addressLine1": "11165 Westheimer Rd",
+    "city": "",
+    "state": "",
+    "country": "USA",
+    "zip": "77042"
+  },
+  {
+    "id": "customer-63",
+    "name": "Avila Produce Inc",
+    "addressLine1": "1803 S Zarzamora St",
+    "city": "San Antonio",
+    "state": "TX",
+    "country": "USA",
+    "zip": "78207"
+  },
+  {
+    "id": "customer-64",
+    "name": "Ayintap",
+    "addressLine1": "2209 HWY 6 South",
+    "city": "Houston",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77077"
+  },
+  {
+    "id": "customer-65",
+    "name": "B&B INTERCONTINENTAL INVESTMENT LLC ( ALICE CANDY)",
+    "addressLine1": "Sugar land first colony mall no:5518",
+    "city": "Sugar Land",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77479"
+  },
+  {
+    "id": "customer-66",
+    "name": "Baba's International Market",
+    "addressLine1": "203 S Ector Dr",
+    "city": "Houston",
+    "state": "TX",
+    "country": "USA",
+    "zip": "76040"
+  },
+  {
+    "id": "customer-67",
+    "name": "Babahan uyghur cafe",
+    "addressLine1": "5306 depot dr",
+    "city": "Sachse",
+    "state": "TX",
+    "country": "USA",
+    "zip": "75048"
+  },
+  {
+    "id": "customer-68",
+    "name": "Babella Food And Catering (LOQUM) Mediterranean grill",
+    "addressLine1": "3707 College Park Drive Ste 400",
+    "city": "The Woodlands",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77384"
+  },
+  {
+    "id": "customer-69",
+    "name": "Baboush Med. Restaurant",
+    "addressLine1": "3636 Mc Kinney Ave #160",
+    "city": "Richardson",
+    "state": "TX",
+    "country": "USA",
+    "zip": "75204"
+  },
+  {
+    "id": "customer-70",
+    "name": "Bake Me Happy Bakery",
+    "addressLine1": "24441 Tomball Pkwy Suite 180, Houston, TX 77375",
+    "city": "Houston",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77375"
+  },
+  {
+    "id": "customer-71",
+    "name": "Baklovah Bakery & Sweets",
+    "addressLine1": "9329 Wurzbach Rd #104, San Antonio, TX 78240",
+    "city": "San Antonio",
+    "state": "TX",
+    "country": "USA",
+    "zip": "78240"
+  },
+  {
+    "id": "customer-72",
+    "name": "Balqees Coffee ( ADEN COFFEE)",
+    "addressLine1": "2041 U.S. 287 Frontage Rd #103",
+    "city": "Mansfield",
+    "state": "TX",
+    "country": "USA",
+    "zip": "76063"
+  },
+  {
+    "id": "customer-73",
+    "name": "Barbarossa Coffee - MAGNOLIA",
+    "addressLine1": "Sweetgum Road",
+    "city": "Magnolia",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77354"
+  },
+  {
+    "id": "customer-74",
+    "name": "Barbarossa Coffee (Barbarossa Coffee Roasters)",
+    "addressLine1": "9166 Farm to Market 2920 Suite 100",
+    "city": "Tomball",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77375"
+  },
+  {
+    "id": "customer-75",
+    "name": "Barbarossa Coffee Gosling location",
+    "addressLine1": "21943 Gosling Rd Suite 100",
+    "city": "Spring",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77388"
+  },
+  {
+    "id": "customer-76",
+    "name": "Bazaar Istanbul",
+    "addressLine1": "25600 Westheimer Pkwy",
+    "city": "Plano",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77494"
+  },
+  {
+    "id": "customer-77",
+    "name": "Beans Up Coffee-Spring",
+    "addressLine1": "21327 N Fwy Suite D, Spring, TX",
+    "city": "Richardson",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77388"
+  },
+  {
+    "id": "customer-78",
+    "name": "Beans Up Coffee-Westpark",
+    "addressLine1": "3306 Hwy 6 South\r\nSuite 300",
+    "city": "Houston",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77082"
+  },
+  {
+    "id": "customer-79",
+    "name": "Beikos Restaurant",
+    "addressLine1": "6800 Southwest Fwy,",
+    "city": "Houston",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77074"
+  },
+  {
+    "id": "customer-80",
+    "name": "Berliner Doner Bakery LLC",
+    "addressLine1": "2602 luke blvd 78236 lackland",
+    "city": "Lackland",
+    "state": "TX",
+    "country": "USA",
+    "zip": "78236"
+  },
+  {
+    "id": "customer-81",
+    "name": "BHD Management llc",
+    "addressLine1": "9392 WURZBACH RD",
+    "city": "San Antonio",
+    "state": "TX",
+    "country": "USA",
+    "zip": "78240"
+  },
+  {
+    "id": "customer-82",
+    "name": "BIGDASH ICE CREAM PASTRIES",
+    "addressLine1": "888 S Greenville Ave Suite 140",
+    "city": "Richardson",
+    "state": "TX",
+    "country": "USA",
+    "zip": "75081"
+  },
+  {
+    "id": "customer-83",
+    "name": "Bilad Restaurant and Bakery",
+    "addressLine1": "850 S Greenville Ave",
+    "city": "Richardson",
+    "state": "TX",
+    "country": "USA",
+    "zip": "75081"
+  },
+  {
+    "id": "customer-84",
+    "name": "Biryani and more",
+    "addressLine1": "11102 S Texas 6 Ste. #110, Sugar Land, TX",
+    "city": "Sugar Land",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77498"
+  },
+  {
+    "id": "customer-85",
+    "name": "Bismillah Grocer & Halal Meat",
+    "addressLine1": "15106 state Hwy 3",
+    "city": "Webster",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77598"
+  },
+  {
+    "id": "customer-86",
+    "name": "Bloom Cafe Garland",
+    "addressLine1": "1815 W Campbell R #3",
+    "city": "Garland",
+    "state": "TX",
+    "country": "USA",
+    "zip": "75044"
+  },
+  {
+    "id": "customer-87",
+    "name": "Blue Fig",
+    "addressLine1": "4101 E Park Blvd # 135",
+    "city": "Plano",
+    "state": "TX",
+    "country": "USA",
+    "zip": "75074"
+  },
+  {
+    "id": "customer-88",
+    "name": "BOOMBOLT INC",
+    "addressLine1": "9400 wade Boulevard #2012",
+    "city": "Frisco",
+    "state": "TX",
+    "country": "USA",
+    "zip": "75035"
+  },
+  {
+    "id": "customer-89",
+    "name": "Bosphorus Mediterranean Grill",
+    "addressLine1": "6121 W Park Blvd, Plano, TX 75093",
+    "city": "Plano",
+    "state": "TX",
+    "country": "USA",
+    "zip": "75093"
+  },
+  {
+    "id": "customer-90",
+    "name": "Bowls N Go",
+    "addressLine1": "203 8th st",
+    "city": "San Antonio",
+    "state": "TX",
+    "country": "USA",
+    "zip": "78215"
+  },
+  {
+    "id": "customer-91",
+    "name": "Cafe Istanbul",
+    "addressLine1": "7300 Lone Star Dr Suite C160",
+    "city": "Plano",
+    "state": "TX",
+    "country": "USA",
+    "zip": "75024"
+  },
+  {
+    "id": "customer-92",
+    "name": "Candy time INC",
+    "addressLine1": "601Donald Lynch Bld s130",
+    "city": "Marlborough",
+    "state": "MA",
+    "country": "USA",
+    "zip": "01752"
+  },
+  {
+    "id": "customer-93",
+    "name": "Candy Zone Inc",
+    "addressLine1": "3803 Irving mall , Store : 7506",
+    "city": "Irving",
+    "state": "TX",
+    "country": "USA",
+    "zip": "75062"
+  },
+  {
+    "id": "customer-94",
+    "name": "Capital Sales Company",
+    "addressLine1": "1471 E. Nine Mile Rd",
+    "city": "Hazel Park",
+    "state": "MI",
+    "country": "USA",
+    "zip": "48030"
+  },
+  {
+    "id": "customer-95",
+    "name": "CDW Convenience Demand Wholesale",
+    "addressLine1": "418 Jordan Ln NW Suite A",
+    "city": "Huntsville",
+    "state": "TX",
+    "country": "USA",
+    "zip": "35805"
+  },
+  {
+    "id": "customer-96",
+    "name": "Chako Food (Recep Bey)",
+    "addressLine1": "Chakoo Pizza/Pizzaday 10225 Research Blvd #110",
+    "city": "Austin",
+    "state": "TX",
+    "country": "USA",
+    "zip": "78759"
+  },
+  {
+    "id": "customer-97",
+    "name": "Chalo India",
+    "addressLine1": "11010 Panther Creek Parkway #1",
+    "city": "Frisco",
+    "state": "TX",
+    "country": "USA",
+    "zip": "75034"
+  },
+  {
+    "id": "customer-98",
+    "name": "Chama Gaúcha Brazilian Steakhouse",
+    "addressLine1": "5865 Westheimer Rd,",
+    "city": "Houston",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77057"
+  },
+  {
+    "id": "customer-99",
+    "name": "Chef truck LLC",
+    "addressLine1": "9400 Hunter lane",
+    "city": "Austin",
+    "state": "TX",
+    "country": "USA",
+    "zip": "78748"
+  },
+  {
+    "id": "customer-100",
+    "name": "Chef’s Table",
+    "addressLine1": "1546 Babcock Rd #102, ,",
+    "city": "San Antonio",
+    "state": "TX",
+    "country": "USA",
+    "zip": "78229"
+  },
+  {
+    "id": "customer-101",
+    "name": "Chefika Mediterranean Restaurant",
+    "addressLine1": "7859 Walnut Hill Ln Ste 170",
+    "city": "Eufess",
+    "state": "TX",
+    "country": "USA",
+    "zip": "75230"
+  },
+  {
+    "id": "customer-102",
+    "name": "Chem Nerdz",
+    "addressLine1": "2671 Manana Dr",
+    "city": "Houston",
+    "state": "TX",
+    "country": "USA",
+    "zip": "75220"
+  },
+  {
+    "id": "customer-103",
+    "name": "Chicago Import Inc",
+    "addressLine1": "3811 W Lawrence Ave",
+    "city": "Sugar Land",
+    "state": "TX",
+    "country": "USA",
+    "zip": "60625"
+  },
+  {
+    "id": "customer-104",
+    "name": "Chiyaya Bakery LLC",
+    "addressLine1": "1301 N A W Grimes Blvd Apt:824",
+    "city": "Round Rock",
+    "state": "TX",
+    "country": "USA",
+    "zip": "78665"
+  },
+  {
+    "id": "customer-105",
+    "name": "Chocolatzeina",
+    "addressLine1": "6100 Westeimer Rd",
+    "city": "Houston",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77057"
+  },
+  {
+    "id": "customer-106",
+    "name": "Choice Novelties Inc",
+    "addressLine1": "5700 Braxton Dr STE 101",
+    "city": "Houston",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77036"
+  },
+  {
+    "id": "customer-107",
+    "name": "Choke Cayon Travel CENTER",
+    "addressLine1": "16565 Shepherd Rd",
+    "city": "Atascosa",
+    "state": "TX",
+    "country": "USA",
+    "zip": "78002"
+  },
+  {
+    "id": "customer-108",
+    "name": "Classic International Market",
+    "addressLine1": "2310 Virginia Pkwy #130",
+    "city": "Mckinney",
+    "state": "TX",
+    "country": "USA",
+    "zip": "75071"
+  },
+  {
+    "id": "customer-109",
+    "name": "Coast To Coast Distribution (GAMA WHOLESLE)",
+    "addressLine1": "1805 Aviation Dr",
+    "city": "Georgetown",
+    "state": "TX",
+    "country": "USA",
+    "zip": "78628"
+  },
+  {
+    "id": "customer-110",
+    "name": "coffein",
+    "addressLine1": "1840 westheimer rd",
+    "city": "Houston",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77098"
+  },
+  {
+    "id": "customer-111",
+    "name": "Colors Grocery/Indian & European Food",
+    "addressLine1": "5054 Trail Lake Dr",
+    "city": "Fort Worth",
+    "state": "TX",
+    "country": "USA",
+    "zip": "76133"
+  },
+  {
+    "id": "customer-112",
+    "name": "CONRAN LLC",
+    "addressLine1": "8325 osborne dr",
+    "city": "Austin",
+    "state": "TX",
+    "country": "USA",
+    "zip": "78729"
+  },
+  {
+    "id": "customer-113",
+    "name": "Crep & Cup",
+    "addressLine1": "3842 Irving Mall",
+    "city": "Irving",
+    "state": "TX",
+    "country": "USA",
+    "zip": "75062"
+  },
+  {
+    "id": "customer-114",
+    "name": "Crescent market",
+    "addressLine1": "401 realty dr gretna la",
+    "city": "Gretna",
+    "state": "LO",
+    "country": "USA",
+    "zip": "70056"
+  },
+  {
+    "id": "customer-115",
+    "name": "CSN C STORE & NOVELTY OUTLET",
+    "addressLine1": "912 SE 44th street",
+    "city": "Oklahoma City",
+    "state": "TX",
+    "country": "USA",
+    "zip": "73129"
+  },
+  {
+    "id": "customer-116",
+    "name": "Cypress Grocery and Halal Meat",
+    "addressLine1": "11700 Barker Cypress Rd Suite E",
+    "city": "Encinal",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77433"
+  },
+  {
+    "id": "customer-117",
+    "name": "DALLAS HALAL MEAT (Nadeem)",
+    "addressLine1": "7340 S State Hwy 78 Suite 1200,",
+    "city": "Sachse",
+    "state": "TX",
+    "country": "USA",
+    "zip": "75048"
+  },
+  {
+    "id": "customer-118",
+    "name": "DERA COFFE",
+    "addressLine1": "2320 Los Rios Blvd #101",
+    "city": "Plano",
+    "state": "TX",
+    "country": "USA",
+    "zip": "75074"
+  },
+  {
+    "id": "customer-119",
+    "name": "DESI BROTHERS",
+    "addressLine1": "CENTRAL EXPRESSWAY SUITE 28C",
+    "city": "Richardson",
+    "state": "TX",
+    "country": "USA",
+    "zip": "75080"
+  },
+  {
+    "id": "customer-120",
+    "name": "DESI CHOWRASTA-Aubrey",
+    "addressLine1": "2965 FM1385",
+    "city": "Aubrey",
+    "state": "TX",
+    "country": "USA",
+    "zip": "76227"
+  },
+  {
+    "id": "customer-121",
+    "name": "DESI CHOWRASTHA-Frisco 2",
+    "addressLine1": "1971 FM 423",
+    "city": "Frisco",
+    "state": "TX",
+    "country": "USA",
+    "zip": "75034"
+  },
+  {
+    "id": "customer-122",
+    "name": "Desi District Irving",
+    "addressLine1": "6451 Riverside Dr #100",
+    "city": "Irving",
+    "state": "TX",
+    "country": "USA",
+    "zip": "75039"
+  },
+  {
+    "id": "customer-123",
+    "name": "Desi District McKinney",
+    "addressLine1": "5400 Collin McKinney Pkwy",
+    "city": "Mckinney",
+    "state": "TX",
+    "country": "USA",
+    "zip": "75070"
+  },
+  {
+    "id": "customer-124",
+    "name": "Desi District PROSPER",
+    "addressLine1": "2275 University Dr",
+    "city": "Prosper",
+    "state": "TX",
+    "country": "USA",
+    "zip": "75033"
+  },
+  {
+    "id": "customer-125",
+    "name": "Desi District-Frisco",
+    "addressLine1": "12990 Eldorado Pkwy #100",
+    "city": "Frisco",
+    "state": "TX",
+    "country": "USA",
+    "zip": "75035"
+  },
+  {
+    "id": "customer-126",
+    "name": "Dessert Avenue",
+    "addressLine1": "208 W FM 544 Suite 106",
+    "city": "Murphy",
+    "state": "TX",
+    "country": "USA",
+    "zip": "75094"
+  },
+  {
+    "id": "customer-127",
+    "name": "Di Rosanis Italian Restaurant",
+    "addressLine1": "105 S Main St, Irving, TX 75060",
+    "city": "Irving",
+    "state": "TX",
+    "country": "USA",
+    "zip": "75060"
+  },
+  {
+    "id": "customer-128",
+    "name": "Dijlah Grocery & Bakery",
+    "addressLine1": "Westheimer Road",
+    "city": "Houston",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77063"
+  },
+  {
+    "id": "customer-129",
+    "name": "Divine Distro",
+    "addressLine1": "Mailing address: 5755 Bonhomme Rd, Suite 410,",
+    "city": "Houston",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77036"
+  },
+  {
+    "id": "customer-130",
+    "name": "Diwan Hookah and Cafe LLC",
+    "addressLine1": "Service Road Sb, 11700 N Interstate Hwy 35 SVRD,",
+    "city": "Austin",
+    "state": "TX",
+    "country": "USA",
+    "zip": "78753"
+  },
+  {
+    "id": "customer-131",
+    "name": "Dolo Gelato Coffee and Pastries",
+    "addressLine1": "23127 W I-10 #201",
+    "city": "San Antonio",
+    "state": "TX",
+    "country": "USA",
+    "zip": "78256"
+  },
+  {
+    "id": "customer-132",
+    "name": "Donerci",
+    "addressLine1": "300 dominion dr",
+    "city": "Wylie",
+    "state": "TX",
+    "country": "USA",
+    "zip": "75098"
+  },
+  {
+    "id": "customer-133",
+    "name": "Dove Charter Public School Foundation",
+    "addressLine1": "5601 Northwest Expy Ste: 500",
+    "city": "Warr Acres",
+    "state": "OK",
+    "country": "USA",
+    "zip": "73132"
+  },
+  {
+    "id": "customer-134",
+    "name": "Downtown Shawarma",
+    "addressLine1": "118 n henderson st",
+    "city": "Fort Worth",
+    "state": "TX",
+    "country": "USA",
+    "zip": "76102"
+  },
+  {
+    "id": "customer-135",
+    "name": "Dubai Dips",
+    "addressLine1": "Clear Lake City Boulevard",
+    "city": "Houston",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77062"
+  },
+  {
+    "id": "customer-136",
+    "name": "Durmaz LLC",
+    "addressLine1": "11815 Balmorhea Ln",
+    "city": "Sugar Land",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77498"
+  },
+  {
+    "id": "customer-137",
+    "name": "Dynamite Grill",
+    "addressLine1": "7401 Matlock Rd Suite 117",
+    "city": "Arlington",
+    "state": "TX",
+    "country": "USA",
+    "zip": "76002"
+  },
+  {
+    "id": "customer-138",
+    "name": "E.K. PERFUMES",
+    "addressLine1": "5810 Hillcroft ST",
+    "city": "Houston",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77036"
+  },
+  {
+    "id": "customer-139",
+    "name": "Ephesus Bistro & Grill Rowlett",
+    "addressLine1": "6702 Dalrock Rd,",
+    "city": "Rowlett",
+    "state": "TX",
+    "country": "USA",
+    "zip": "75089"
+  },
+  {
+    "id": "customer-140",
+    "name": "Epic Market",
+    "addressLine1": "4301 14th St Suite #220, Plano, TX 75074",
+    "city": "Plano",
+    "state": "TX",
+    "country": "USA",
+    "zip": "75074"
+  },
+  {
+    "id": "customer-141",
+    "name": "Epic market 101",
+    "addressLine1": "4301 14th St",
+    "city": "Plano",
+    "state": "TX",
+    "country": "USA",
+    "zip": "75074"
+  },
+  {
+    "id": "customer-142",
+    "name": "Erba Subs LLC (GYRO LEAF)",
+    "addressLine1": "2726 Mercantile Dr Unit 302",
+    "city": "Richmond",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77471"
+  },
+  {
+    "id": "customer-143",
+    "name": "Ercan Inc",
+    "addressLine1": "1275 Rand Rd",
+    "city": "Arlington",
+    "state": "TX",
+    "country": "USA",
+    "zip": "60016"
+  },
+  {
+    "id": "customer-144",
+    "name": "ESMETU LLC",
+    "addressLine1": "9301 W Bellfort Blvd",
+    "city": "Houston",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77031"
+  },
+  {
+    "id": "customer-145",
+    "name": "Euro Deli Too",
+    "addressLine1": "6832 Coit rd. ste 300",
+    "city": "Plano",
+    "state": "TX",
+    "country": "USA",
+    "zip": "75023"
+  },
+  {
+    "id": "customer-146",
+    "name": "Express Fuel",
+    "addressLine1": "4805 Galveston Road",
+    "city": "Houston",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77017"
+  },
+  {
+    "id": "customer-147",
+    "name": "Expressistanbul LLC",
+    "addressLine1": "25115 Gosling Rd, Spring",
+    "city": "Spring",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77389"
+  },
+  {
+    "id": "customer-148",
+    "name": "EYEL Kitchen",
+    "addressLine1": "6041 west i 40",
+    "city": "Amarillo",
+    "state": "TX",
+    "country": "USA",
+    "zip": "79106"
+  },
+  {
+    "id": "customer-149",
+    "name": "Fadi's - Central Kitchen",
+    "addressLine1": "South Texas 6",
+    "city": "Houston",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77077"
+  },
+  {
+    "id": "customer-150",
+    "name": "Fadi's - Eatery",
+    "addressLine1": "1801 Binz St #130",
+    "city": "Houston",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77004"
+  },
+  {
+    "id": "customer-151",
+    "name": "Fadi's - Galleria",
+    "addressLine1": "6365 Westheimer Rd",
+    "city": "Houston",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77057"
+  },
+  {
+    "id": "customer-152",
+    "name": "Fadi's - Katy",
+    "addressLine1": "21792 Katy Fwy",
+    "city": "Katy",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77449"
+  },
+  {
+    "id": "customer-153",
+    "name": "Fadi’s - Memorial",
+    "addressLine1": "10403 Katy Fwy #150",
+    "city": "Houston",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77024"
+  },
+  {
+    "id": "customer-154",
+    "name": "Fadi's - Museum",
+    "addressLine1": "Binz Street #130",
+    "city": "Houston",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77004"
+  },
+  {
+    "id": "customer-155",
+    "name": "Fadi’s - Sugar Land",
+    "addressLine1": "716 Hwy 6",
+    "city": "Sugar Land",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77478"
+  },
+  {
+    "id": "customer-156",
+    "name": "Fadi's - Westeimer",
+    "addressLine1": "12360 Westheimer Rd Suite A",
+    "city": "Houston",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77077"
+  },
+  {
+    "id": "customer-157",
+    "name": "Ferah kitchen",
+    "addressLine1": "690 beebalm Ln",
+    "city": "Pantego",
+    "state": "TX",
+    "country": "USA",
+    "zip": "75040"
+  },
+  {
+    "id": "customer-158",
+    "name": "FIRIN BAKERY",
+    "addressLine1": "1815 W Campbell Rd Suite #6",
+    "city": "Garland",
+    "state": "TX",
+    "country": "USA",
+    "zip": "75044"
+  },
+  {
+    "id": "customer-159",
+    "name": "Fresh Halal Depot",
+    "addressLine1": "2304 w park row dr STE27",
+    "city": "Pantego",
+    "state": "TX",
+    "country": "USA",
+    "zip": "76013"
+  },
+  {
+    "id": "customer-160",
+    "name": "Fresh ready market",
+    "addressLine1": "10744 n beach st. ,",
+    "city": "Fort Worth",
+    "state": "TX",
+    "country": "USA",
+    "zip": "76244"
+  },
+  {
+    "id": "customer-161",
+    "name": "Frosty Cones",
+    "addressLine1": "120 kinsolving road",
+    "city": "Belton",
+    "state": "TX",
+    "country": "USA",
+    "zip": "76513"
+  },
+  {
+    "id": "customer-162",
+    "name": "Fuel America laredo",
+    "addressLine1": "13602 Mines Rd,",
+    "city": "Laredo",
+    "state": "TX",
+    "country": "USA",
+    "zip": "78045"
+  },
+  {
+    "id": "customer-163",
+    "name": "Galaxy Wholesale Novelties",
+    "addressLine1": "7250 Harwin Dr",
+    "city": "Houston",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77036"
+  },
+  {
+    "id": "customer-164",
+    "name": "Garland Indopak Inc.",
+    "addressLine1": "1805 W. Campbell Rd. #105",
+    "city": "Garland",
+    "state": "TX",
+    "country": "USA",
+    "zip": "75044"
+  },
+  {
+    "id": "customer-165",
+    "name": "GARSON",
+    "addressLine1": "2926 Hillcroft Ave, Houston, TX 77057",
+    "city": "Houston",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77057"
+  },
+  {
+    "id": "customer-166",
+    "name": "GHRA Warehouse and Distribution Center",
+    "addressLine1": "7110 Bellerive Dr",
+    "city": "Houston",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77036"
+  },
+  {
+    "id": "customer-167",
+    "name": "Global Food market",
+    "addressLine1": "800 E Sublett rd Arlington",
+    "city": "San Antonio",
+    "state": "TX",
+    "country": "USA",
+    "zip": "76018"
+  },
+  {
+    "id": "customer-168",
+    "name": "Global foodland",
+    "addressLine1": "11501 Menchaca Rd",
+    "city": "Austin",
+    "state": "TX",
+    "country": "USA",
+    "zip": "78748"
+  },
+  {
+    "id": "customer-169",
+    "name": "Global Halal Supermarket",
+    "addressLine1": "5604 Hillcroft St",
+    "city": "Houston",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77036"
+  },
+  {
+    "id": "customer-170",
+    "name": "Gold Star Imports",
+    "addressLine1": "8000 Harwin Dr. Ste 460",
+    "city": "Houston",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77036"
+  },
+  {
+    "id": "customer-171",
+    "name": "Golden Roastery (Noah)",
+    "addressLine1": "3111 Fondren Rd",
+    "city": "Houston",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77063"
+  },
+  {
+    "id": "customer-172",
+    "name": "Golden Roastery (NORTH)",
+    "addressLine1": "Farm to Market 1960 Road West",
+    "city": "Houston",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77069"
+  },
+  {
+    "id": "customer-173",
+    "name": "Golden Star Halal Market, Afghan Bakery & Cafe",
+    "addressLine1": "300 Terrace Dr #309",
+    "city": "Richardson",
+    "state": "TX",
+    "country": "USA",
+    "zip": "75081"
+  },
+  {
+    "id": "customer-174",
+    "name": "Gordo's Travel Center",
+    "addressLine1": "2437 N Main St",
+    "city": "Junction",
+    "state": "TX",
+    "country": "USA",
+    "zip": "76849"
+  },
+  {
+    "id": "customer-175",
+    "name": "GOURMET EUROPEAN MARKERTY",
+    "addressLine1": "17435 PRESTON RD",
+    "city": "Plano",
+    "state": "TX",
+    "country": "USA",
+    "zip": "75252"
+  },
+  {
+    "id": "customer-176",
+    "name": "Green Holyland Llc",
+    "addressLine1": "2106 N Galloway Ave ,",
+    "city": "Mesquite",
+    "state": "TX",
+    "country": "USA",
+    "zip": "75150"
+  },
+  {
+    "id": "customer-177",
+    "name": "Green Olive Mediterranean Euro market",
+    "addressLine1": "101 E Southwest Pkwy # 114",
+    "city": "Lewisville",
+    "state": "TX",
+    "country": "USA",
+    "zip": "75067"
+  },
+  {
+    "id": "customer-178",
+    "name": "Green Vine Market",
+    "addressLine1": "1804 K Ave, Plano",
+    "city": "Plano",
+    "state": "TX",
+    "country": "USA",
+    "zip": "75075"
+  },
+  {
+    "id": "customer-179",
+    "name": "Grocfy LLC",
+    "addressLine1": "5630 Whisper Ridge Dr",
+    "city": "Sugar Land",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77479"
+  },
+  {
+    "id": "customer-180",
+    "name": "Gulser's kitchen",
+    "addressLine1": "405 W Main St",
+    "city": "Allen",
+    "state": "TX",
+    "country": "USA",
+    "zip": "75013"
+  },
+  {
+    "id": "customer-181",
+    "name": "Gyro Delicious Food Track",
+    "addressLine1": "Whitis Avenue",
+    "city": "Austin",
+    "state": "TX",
+    "country": "USA",
+    "zip": "78705"
+  },
+  {
+    "id": "customer-182",
+    "name": "Habibi treat's",
+    "addressLine1": "West Waco Drive",
+    "city": "Waco",
+    "state": "TX",
+    "country": "USA",
+    "zip": "76710"
+  },
+  {
+    "id": "customer-183",
+    "name": "Hadramout Restaurant",
+    "addressLine1": "3401 W Airport Fwy suite 102",
+    "city": "Irving",
+    "state": "TX",
+    "country": "USA",
+    "zip": "75062"
+  },
+  {
+    "id": "customer-184",
+    "name": "Hadramout Restaurant Dallas",
+    "addressLine1": "3825 w spring creek pkwy unit 206",
+    "city": "Plano",
+    "state": "TX",
+    "country": "USA",
+    "zip": "75023"
+  },
+  {
+    "id": "customer-185",
+    "name": "HALAL ALBARAKA GROCERY",
+    "addressLine1": "406 N MAIN ST.",
+    "city": "San Antonio",
+    "state": "TX",
+    "country": "USA",
+    "zip": "76039"
+  },
+  {
+    "id": "customer-186",
+    "name": "Halal Import Food Market",
+    "addressLine1": "701 E Pioneer Pkwy C, Arlington, TX 76010",
+    "city": "Arlington",
+    "state": "TX",
+    "country": "USA",
+    "zip": "76010"
+  },
+  {
+    "id": "customer-187",
+    "name": "Halal On Fire (Turhan food llc)",
+    "addressLine1": "13201 Pond Springs Rd, #103",
+    "city": "Austin",
+    "state": "TX",
+    "country": "USA",
+    "zip": "78729"
+  },
+  {
+    "id": "customer-188",
+    "name": "Halex Llc",
+    "addressLine1": "2050 N Plano Rd Suite 300-D",
+    "city": "Richardson",
+    "state": "TX",
+    "country": "USA",
+    "zip": "75082"
+  },
+  {
+    "id": "customer-189",
+    "name": "Haraz Coffee - Sugarland (Roast Republic)",
+    "addressLine1": "13582 University Blvd suite 100, Sugar Land, TX",
+    "city": "Sugar Land",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77479"
+  },
+  {
+    "id": "customer-190",
+    "name": "Harissa Mediterranean (Sejdini)",
+    "addressLine1": "5805 preston rd",
+    "city": "Plano",
+    "state": "TX",
+    "country": "USA",
+    "zip": "75093"
+  },
+  {
+    "id": "customer-191",
+    "name": "Harmony School of Innovation - Houston",
+    "addressLine1": "9421 W Sam houston pkway S",
+    "city": "Houston",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77099"
+  },
+  {
+    "id": "customer-192",
+    "name": "Harmony school of technology",
+    "addressLine1": "3203 N Sam Houston Pkwy W",
+    "city": "Houston",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77038"
+  },
+  {
+    "id": "customer-193",
+    "name": "Harvest Market Sienna",
+    "addressLine1": "4603 Sienna Pkwy",
+    "city": "Missouri City",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77459"
+  },
+  {
+    "id": "customer-194",
+    "name": "HASAN DEMIR",
+    "addressLine1": "SUGAR LAND TX",
+    "city": "Sugar Land",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77478"
+  },
+  {
+    "id": "customer-195",
+    "name": "HAZION LLC",
+    "addressLine1": "6464 Savoy drive",
+    "city": "Houston",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77036"
+  },
+  {
+    "id": "customer-196",
+    "name": "Hira Halal Meat & Groceries",
+    "addressLine1": "17023 FM 529",
+    "city": "Houston",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77095"
+  },
+  {
+    "id": "customer-197",
+    "name": "Horizon Cafe&Kitchen",
+    "addressLine1": "2901 W 15th St Ste A",
+    "city": "Plano",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77075"
+  },
+  {
+    "id": "customer-198",
+    "name": "Horizon Specialty Market",
+    "addressLine1": "2901 W 15th St. Sta: A",
+    "city": "Plano",
+    "state": "TX",
+    "country": "USA",
+    "zip": "75075"
+  },
+  {
+    "id": "customer-199",
+    "name": "HOT SPOT GYRO",
+    "addressLine1": "2727 , 8th Aven.",
+    "city": "Fort Worth",
+    "state": "TX",
+    "country": "USA",
+    "zip": "76110"
+  },
+  {
+    "id": "customer-200",
+    "name": "HOUSTON TURAN UYGHURR KITCHEN",
+    "addressLine1": "9330 Bellaire Blvd",
+    "city": "Dallas",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77036"
+  },
+  {
+    "id": "customer-201",
+    "name": "HTX wholesale & Distributors",
+    "addressLine1": "7222 Harwin dr",
+    "city": "Houston",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77036"
+  },
+  {
+    "id": "customer-202",
+    "name": "HUBER MART",
+    "addressLine1": "6640 BRANDT PIKE",
+    "city": "Huber Heights",
+    "state": "TX",
+    "country": "USA",
+    "zip": "45424"
+  },
+  {
+    "id": "customer-203",
+    "name": "Huge Bites",
+    "addressLine1": "7919 Westeimer Rd",
+    "city": "Houston",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77063"
+  },
+  {
+    "id": "customer-204",
+    "name": "Hunt's Food Store",
+    "addressLine1": "7932 S Great Trinity Forest Way",
+    "city": "Houston",
+    "state": "TX",
+    "country": "USA",
+    "zip": "75217"
+  },
+  {
+    "id": "customer-205",
+    "name": "Huntsville Wholesale Grocers, Inc.",
+    "addressLine1": "904 US-190, Huntsville",
+    "city": "Huntsville",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77340"
+  },
+  {
+    "id": "customer-206",
+    "name": "IBF International",
+    "addressLine1": "496 Lower Fricks Lock Rd, unit 212",
+    "city": "Pottstown",
+    "state": "PA",
+    "country": "USA",
+    "zip": "19465"
+  },
+  {
+    "id": "customer-207",
+    "name": "INDIA IMPORTS",
+    "addressLine1": "2521 W Airport Fwy",
+    "city": "Irving",
+    "state": "TX",
+    "country": "USA",
+    "zip": "75062"
+  },
+  {
+    "id": "customer-208",
+    "name": "Indo-Pak Supermarket Murphy",
+    "addressLine1": "420 Village Dr Suite 100",
+    "city": "Murphy",
+    "state": "TX",
+    "country": "USA",
+    "zip": "75094"
+  },
+  {
+    "id": "customer-209",
+    "name": "Indopak supermarket Plano",
+    "addressLine1": "2060 w. spring creek pkwy. suite",
+    "city": "Plano",
+    "state": "TX",
+    "country": "USA",
+    "zip": "75023"
+  },
+  {
+    "id": "customer-210",
+    "name": "IndoPak Supermarket Richardson",
+    "addressLine1": "323 E Polk St, v,",
+    "city": "Richardson",
+    "state": "TX",
+    "country": "USA",
+    "zip": "75081"
+  },
+  {
+    "id": "customer-211",
+    "name": "Indopak World Market Arlington",
+    "addressLine1": "808 SW Green Oaks Blvd",
+    "city": "Arlington",
+    "state": "TX",
+    "country": "USA",
+    "zip": "76017"
+  },
+  {
+    "id": "customer-212",
+    "name": "International Food Land",
+    "addressLine1": "1729 S Cooper St",
+    "city": "Arlington",
+    "state": "TX",
+    "country": "USA",
+    "zip": "76010"
+  },
+  {
+    "id": "customer-213",
+    "name": "International foods (Cozmo)",
+    "addressLine1": "11331 N Lamar Blvd, Austin, TX 78753",
+    "city": "Austin",
+    "state": "TX",
+    "country": "USA",
+    "zip": "78753"
+  },
+  {
+    "id": "customer-214",
+    "name": "International foods #2",
+    "addressLine1": "851 S bell blvd",
+    "city": "Sugar Land",
+    "state": "TX",
+    "country": "USA",
+    "zip": "78613"
+  },
+  {
+    "id": "customer-215",
+    "name": "IQ MADEN LLC",
+    "addressLine1": "5900 BALCONES DR ,ste 100",
+    "city": "Austin",
+    "state": "TX",
+    "country": "USA",
+    "zip": "78731"
+  },
+  {
+    "id": "customer-216",
+    "name": "Istanbul Cuisine",
+    "addressLine1": "2140 South Lake Blvd Suit S",
+    "city": "Southlake",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77092"
+  },
+  {
+    "id": "customer-217",
+    "name": "Istanbul Market Atx",
+    "addressLine1": "1700 Bryant Dr Suite.102",
+    "city": "Round Rock",
+    "state": "TX",
+    "country": "USA",
+    "zip": "78664"
+  },
+  {
+    "id": "customer-218",
+    "name": "ISTANBUL SWEETS",
+    "addressLine1": "7919 Westheimer Road",
+    "city": "Houston",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77063"
+  },
+  {
+    "id": "customer-219",
+    "name": "Jasmine Market & Cafe",
+    "addressLine1": "820 S Sherman St, Richardson, TX 75081",
+    "city": "Richardson",
+    "state": "TX",
+    "country": "USA",
+    "zip": "75081"
+  },
+  {
+    "id": "customer-220",
+    "name": "jerusalem international foods",
+    "addressLine1": "5360 N Mesa St",
+    "city": "Richardson",
+    "state": "TX",
+    "country": "USA",
+    "zip": "79912"
+  },
+  {
+    "id": "customer-221",
+    "name": "Joe's International Market",
+    "addressLine1": "153 S Central Expy, McKinney, TX 75070",
+    "city": "Mc Kinney",
+    "state": "TX",
+    "country": "USA",
+    "zip": "75070"
+  },
+  {
+    "id": "customer-222",
+    "name": "K Wholesale LLC",
+    "addressLine1": "1122 E Main Ste 4",
+    "city": "Philadelphia",
+    "state": "TX",
+    "country": "USA",
+    "zip": "39350"
+  },
+  {
+    "id": "customer-223",
+    "name": "Kabul Cuisine",
+    "addressLine1": "9205 Skillman St Suite 125",
+    "city": "Frisco",
+    "state": "TX",
+    "country": "USA",
+    "zip": "75243"
+  },
+  {
+    "id": "customer-224",
+    "name": "Kabul Pameer Halal Market",
+    "addressLine1": "2200 Airport Fwy #540",
+    "city": "Bedford",
+    "state": "TX",
+    "country": "USA",
+    "zip": "76022"
+  },
+  {
+    "id": "customer-225",
+    "name": "Kansas City Raindrop Foundation",
+    "addressLine1": "4215 Shawnee Dr",
+    "city": "Kansas City",
+    "state": "KS",
+    "country": "USA",
+    "zip": "66106"
+  },
+  {
+    "id": "customer-226",
+    "name": "Karak Tea Bakery & Cafe",
+    "addressLine1": "1820 Coit Rd #138",
+    "city": "Plano",
+    "state": "TX",
+    "country": "USA",
+    "zip": "75075"
+  },
+  {
+    "id": "customer-227",
+    "name": "Karibu Coffees Cafe",
+    "addressLine1": "2522 w park row dr",
+    "city": "Pantego",
+    "state": "TX",
+    "country": "USA",
+    "zip": "76013"
+  },
+  {
+    "id": "customer-228",
+    "name": "Kased International Market 1",
+    "addressLine1": "3645 Florida Ave",
+    "city": "Kenner",
+    "state": "LA",
+    "country": "USA",
+    "zip": "70065"
+  },
+  {
+    "id": "customer-229",
+    "name": "Kased International Market 2",
+    "addressLine1": "3645 Florida Ave",
+    "city": "Kenner",
+    "state": "LA",
+    "country": "USA",
+    "zip": "70065"
+  },
+  {
+    "id": "customer-230",
+    "name": "kasra Persian cafe (Nasa persian llc)",
+    "addressLine1": "1212 E NASA Pkwy",
+    "city": "Houston",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77058"
+  },
+  {
+    "id": "customer-231",
+    "name": "Kasra Persian Grill",
+    "addressLine1": "Westheimer Road Houston",
+    "city": "Houston",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77042"
+  },
+  {
+    "id": "customer-232",
+    "name": "Kasra Persian Grill Times Blvd",
+    "addressLine1": "Times Boulevard",
+    "city": "Houston",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77005"
+  },
+  {
+    "id": "customer-233",
+    "name": "Kebab Land",
+    "addressLine1": "10088 Longpoint Road",
+    "city": "Houston",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77055"
+  },
+  {
+    "id": "customer-234",
+    "name": "Kebab Time (Food Truck)",
+    "addressLine1": "1989 N Fry Rd",
+    "city": "Katy",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77449"
+  },
+  {
+    "id": "customer-235",
+    "name": "Keystone Tile Inc",
+    "addressLine1": "12608 Hempstead Rd",
+    "city": "Houston",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77092"
+  },
+  {
+    "id": "customer-236",
+    "name": "KHAN ALP LLC",
+    "addressLine1": "504 manorview Dr apt A 37923",
+    "city": "Knoxville",
+    "state": "TN",
+    "country": "USA",
+    "zip": "37923"
+  },
+  {
+    "id": "customer-237",
+    "name": "Khashoka",
+    "addressLine1": "1057 S Sherman St ste 130",
+    "city": "Richardson",
+    "state": "TX",
+    "country": "USA",
+    "zip": "75081"
+  },
+  {
+    "id": "customer-238",
+    "name": "KKL INTERNATIONAL LLC",
+    "addressLine1": "5111 S Royal Atlanta Dr Suite 5125",
+    "city": "Tucker",
+    "state": "GA",
+    "country": "USA",
+    "zip": "30084"
+  },
+  {
+    "id": "customer-239",
+    "name": "LA CAFE BATU LLC",
+    "addressLine1": "11840 Alamo ranch pkwy",
+    "city": "Allen",
+    "state": "TX",
+    "country": "USA",
+    "zip": "78245"
+  },
+  {
+    "id": "customer-240",
+    "name": "La Souq",
+    "addressLine1": "150 W Main St ste 900",
+    "city": "Richardson",
+    "state": "TX",
+    "country": "USA",
+    "zip": "75081"
+  },
+  {
+    "id": "customer-241",
+    "name": "LAMA WHOLESALE",
+    "addressLine1": "4913 AIRPORT FREEWAY",
+    "city": "Haltom City",
+    "state": "TX",
+    "country": "USA",
+    "zip": "76117"
+  },
+  {
+    "id": "customer-242",
+    "name": "LAmour Du Cafe",
+    "addressLine1": "11929 University Blvd #1g",
+    "city": "Sugar Land",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77479"
+  },
+  {
+    "id": "customer-243",
+    "name": "Le french kabab ( MAYFAIR GARDEN TEXAS LLC)",
+    "addressLine1": "3900 balcones dr",
+    "city": "Austin",
+    "state": "TX",
+    "country": "USA",
+    "zip": "78731"
+  },
+  {
+    "id": "customer-244",
+    "name": "Lelas Sweets",
+    "addressLine1": "230 W Parker Rd Suite 180A",
+    "city": "Plano",
+    "state": "TX",
+    "country": "USA",
+    "zip": "75075"
+  },
+  {
+    "id": "customer-245",
+    "name": "LEYASHOP LLC _ LEYA CANDY",
+    "addressLine1": "Willowbrook Mall",
+    "city": "Houston",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77070"
+  },
+  {
+    "id": "customer-246",
+    "name": "Liva Mediterranean Grill",
+    "addressLine1": "2026 Austin Hwy",
+    "city": "San Antonio",
+    "state": "TX",
+    "country": "USA",
+    "zip": "78218"
+  },
+  {
+    "id": "customer-247",
+    "name": "M&K Mediterranean Grocery & Grill",
+    "addressLine1": "5250 N Tarrant Pkwy #122, Fort Worth, TX 76137",
+    "city": "Fort Worth",
+    "state": "TX",
+    "country": "USA",
+    "zip": "76137"
+  },
+  {
+    "id": "customer-248",
+    "name": "MALANI ENTERPRISE , INC",
+    "addressLine1": "6901 APPLING FARMS PKWY",
+    "city": "Memphis",
+    "state": "TN",
+    "country": "USA",
+    "zip": "38133"
+  },
+  {
+    "id": "customer-249",
+    "name": "Mama Fontana",
+    "addressLine1": "14779 Memorial Dr",
+    "city": "Houston",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77079"
+  },
+  {
+    "id": "customer-250",
+    "name": "Manpasand Supermarket",
+    "addressLine1": "U.S. 183",
+    "city": "Austin",
+    "state": "TX",
+    "country": "USA",
+    "zip": "78717"
+  },
+  {
+    "id": "customer-251",
+    "name": "Marathon Gas station",
+    "addressLine1": "111 Marcum RD",
+    "city": "Lakeland",
+    "state": "FL",
+    "country": "USA",
+    "zip": "33809"
+  },
+  {
+    "id": "customer-252",
+    "name": "MAVES LLC",
+    "addressLine1": "315 Cornerstone Drive",
+    "city": "Waylie",
+    "state": "TX",
+    "country": "USA",
+    "zip": "75098"
+  },
+  {
+    "id": "customer-253",
+    "name": "Mealbux",
+    "addressLine1": "3301 Steck Ave STE 106",
+    "city": "Austin",
+    "state": "TX",
+    "country": "USA",
+    "zip": "78757"
+  },
+  {
+    "id": "customer-254",
+    "name": "Mean Grille",
+    "addressLine1": "3995 Richmond Ave. Suite B, Houston, TX 77027",
+    "city": "Houston",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77027"
+  },
+  {
+    "id": "customer-255",
+    "name": "Meat Moot",
+    "addressLine1": "Eldridge Parkway",
+    "city": "Houston",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77082"
+  },
+  {
+    "id": "customer-256",
+    "name": "Medina Market and Halal Meat Market",
+    "addressLine1": "7120 FM 1464",
+    "city": "Richmond",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77407"
+  },
+  {
+    "id": "customer-257",
+    "name": "Mediterraneo",
+    "addressLine1": "1400 Nasa Road 1 Suite D",
+    "city": "Nassau Bay",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77058"
+  },
+  {
+    "id": "customer-258",
+    "name": "MELIS EGE LLC",
+    "addressLine1": "18315 Tacoma ridge dr",
+    "city": "Tomball",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77377"
+  },
+  {
+    "id": "customer-259",
+    "name": "Mezza Grille",
+    "addressLine1": "6100 Westheimer Rd Suite 154",
+    "city": "Houston",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77057"
+  },
+  {
+    "id": "customer-260",
+    "name": "MEZZÉ#1",
+    "addressLine1": "1205 Grand Central Parkway Ste. 100",
+    "city": "Sugar Land",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77304"
+  },
+  {
+    "id": "customer-261",
+    "name": "MEZZÉ#1 Fulsher",
+    "addressLine1": "28432 FM 1093 STE G",
+    "city": "Fulsher",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77441"
+  },
+  {
+    "id": "customer-262",
+    "name": "Midpoint Bar and Eatery",
+    "addressLine1": "25600 Westheimer PKWY STE 400",
+    "city": "Houston",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77494"
+  },
+  {
+    "id": "customer-263",
+    "name": "MODA CAFE, LLC",
+    "addressLine1": "12430 Hempstead Rd",
+    "city": "Houston",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77040"
+  },
+  {
+    "id": "customer-264",
+    "name": "MODA FOOD NJ",
+    "addressLine1": "123 Lehigh Dr Suite B",
+    "city": "Irving",
+    "state": "TX",
+    "country": "USA",
+    "zip": "07004"
+  },
+  {
+    "id": "customer-265",
+    "name": "Mona Lisa Pizza",
+    "addressLine1": "2315 Main St.",
+    "city": "Caddo Mills",
+    "state": "TX",
+    "country": "USA",
+    "zip": "75135"
+  },
+  {
+    "id": "customer-266",
+    "name": "Mona’s cafe",
+    "addressLine1": "3901 banks street",
+    "city": "New Orleans",
+    "state": "LO",
+    "country": "USA",
+    "zip": "70119"
+  },
+  {
+    "id": "customer-267",
+    "name": "Monster Wholesale",
+    "addressLine1": "11100 Harry Hines Blvd",
+    "city": "Bryan",
+    "state": "TX",
+    "country": "USA",
+    "zip": "75229"
+  },
+  {
+    "id": "customer-268",
+    "name": "MOOD Coffee",
+    "addressLine1": "14019 Southwest Fwy #405",
+    "city": "Sugar Land",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77478"
+  },
+  {
+    "id": "customer-269",
+    "name": "Mosaic Cafe",
+    "addressLine1": "is at 11241 W 95th street",
+    "city": "Overlandpark",
+    "state": "KS",
+    "country": "USA",
+    "zip": "66214"
+  },
+  {
+    "id": "customer-270",
+    "name": "Must Go Coffee",
+    "addressLine1": "15000 Bammel north Houston rd. Houston Tx 77014",
+    "city": "Houston",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77014"
+  },
+  {
+    "id": "customer-271",
+    "name": "MWI (Mike World Wide Inc)",
+    "addressLine1": "10515 Harwin Dr, Ste 136",
+    "city": "Houston",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77036"
+  },
+  {
+    "id": "customer-272",
+    "name": "My Spice Grocery",
+    "addressLine1": "Sienna Ranch Road missouri",
+    "city": "Missouri City",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77459"
+  },
+  {
+    "id": "customer-273",
+    "name": "NAY",
+    "addressLine1": "2100 Alamo Road",
+    "city": "Richardson",
+    "state": "TX",
+    "country": "USA",
+    "zip": "75080"
+  },
+  {
+    "id": "customer-274",
+    "name": "NEPA WHOLESALE",
+    "addressLine1": "3220 45th St west Palm Beach , FL",
+    "city": "West Palm Beach",
+    "state": "FL",
+    "country": "USA",
+    "zip": "33407"
+  },
+  {
+    "id": "customer-275",
+    "name": "Neptune Imports INC",
+    "addressLine1": "7636 Harwin Dr. STE 103",
+    "city": "Houston",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77036"
+  },
+  {
+    "id": "customer-276",
+    "name": "New Princeton Inc",
+    "addressLine1": "2529 royal ln unit #202",
+    "city": "Houston",
+    "state": "TX",
+    "country": "USA",
+    "zip": "75229"
+  },
+  {
+    "id": "customer-277",
+    "name": "NEW SUN RACING",
+    "addressLine1": "2000S expressway 83 ste E07",
+    "city": "Harlingen",
+    "state": "TX",
+    "country": "USA",
+    "zip": "78570"
+  },
+  {
+    "id": "customer-278",
+    "name": "Noix bakery & Coffee llc",
+    "addressLine1": "5085 Westheimer road Suite 5058",
+    "city": "Houston",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77056"
+  },
+  {
+    "id": "customer-279",
+    "name": "Noor Cafe",
+    "addressLine1": "15375 Addison Rd",
+    "city": "Addison",
+    "state": "TX",
+    "country": "USA",
+    "zip": "75001"
+  },
+  {
+    "id": "customer-280",
+    "name": "Noor-sha Cafe and Catering",
+    "addressLine1": "1117 South Jupiter rd, Garland",
+    "city": "Garland",
+    "state": "TX",
+    "country": "USA",
+    "zip": "75042"
+  },
+  {
+    "id": "customer-281",
+    "name": "Oasis International Market",
+    "addressLine1": "6150 Independence Pkwy,",
+    "city": "Plano",
+    "state": "TX",
+    "country": "USA",
+    "zip": "75023"
+  },
+  {
+    "id": "customer-282",
+    "name": "Olive and Fire LLC",
+    "addressLine1": "9400 hunter lane",
+    "city": "Austin",
+    "state": "TX",
+    "country": "USA",
+    "zip": "78748"
+  },
+  {
+    "id": "customer-283",
+    "name": "Olive Kabab & Gyro",
+    "addressLine1": "4550 Basswood Blvd. #120",
+    "city": "Fort Worth",
+    "state": "TX",
+    "country": "USA",
+    "zip": "76137"
+  },
+  {
+    "id": "customer-284",
+    "name": "One Stop Distro LLC",
+    "addressLine1": "540 Mountain Industrial Blvd, Suite A",
+    "city": "Tucker",
+    "state": "GA",
+    "country": "USA",
+    "zip": "30084"
+  },
+  {
+    "id": "customer-285",
+    "name": "OZARK TRADE",
+    "addressLine1": "1802 Binz Corporation",
+    "city": "Houston",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77004"
+  },
+  {
+    "id": "customer-286",
+    "name": "Pasha Mediterranean Grill (Blanco)",
+    "addressLine1": "1207 N Loop 1604 W",
+    "city": "San Antonio",
+    "state": "TX",
+    "country": "USA",
+    "zip": "78232"
+  },
+  {
+    "id": "customer-287",
+    "name": "Pasha Mediterranean Grill Selma",
+    "addressLine1": "15069 I-35 Ste. 202, Selma, TX 78154",
+    "city": "Selma",
+    "state": "TX",
+    "country": "USA",
+    "zip": "78154"
+  },
+  {
+    "id": "customer-288",
+    "name": "Pasha Restaurant group Inc",
+    "addressLine1": "17425 Redland Rd",
+    "city": "San Antonio",
+    "state": "TX",
+    "country": "USA",
+    "zip": "78247"
+  },
+  {
+    "id": "customer-289",
+    "name": "Persia frisco",
+    "addressLine1": "7447 hillcrest rd suite 104",
+    "city": "Houston",
+    "state": "TX",
+    "country": "USA",
+    "zip": "75035"
+  },
+  {
+    "id": "customer-290",
+    "name": "PETRA INTERNATIONAL MARKET",
+    "addressLine1": "4710 W SUBLETT RD,",
+    "city": "Arlington",
+    "state": "TX",
+    "country": "USA",
+    "zip": "76017"
+  },
+  {
+    "id": "customer-291",
+    "name": "Phoenicia Bakery & Deli -AUSTIN",
+    "addressLine1": "2912 S Lamar Blvd,",
+    "city": "Austin",
+    "state": "TX",
+    "country": "USA",
+    "zip": "78704"
+  },
+  {
+    "id": "customer-292",
+    "name": "Phoenicia Specialty Foods",
+    "addressLine1": "12141 Westheimer Rd, Houston, TX 77077",
+    "city": "Houston",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77077"
+  },
+  {
+    "id": "customer-293",
+    "name": "Pistachio Roastery (Lozina)",
+    "addressLine1": "4101 E Park Blvd #148, Plano, TX 75074",
+    "city": "Plano",
+    "state": "TX",
+    "country": "USA",
+    "zip": "75074"
+  },
+  {
+    "id": "customer-294",
+    "name": "Pita Hut & Frozen Yogurt",
+    "addressLine1": "1625 TX-256 Loop Ste F, Palestine, TX 75801",
+    "city": "Palestine",
+    "state": "TX",
+    "country": "USA",
+    "zip": "75801"
+  },
+  {
+    "id": "customer-295",
+    "name": "Plano halal meat",
+    "addressLine1": "6100 k ave suit 102",
+    "city": "Plano",
+    "state": "TX",
+    "country": "USA",
+    "zip": "75074"
+  },
+  {
+    "id": "customer-296",
+    "name": "Port coffee co",
+    "addressLine1": "411 E Royal LN 130 irving Tx",
+    "city": "Irving",
+    "state": "TX",
+    "country": "USA",
+    "zip": "75039"
+  },
+  {
+    "id": "customer-297",
+    "name": "Price & Co",
+    "addressLine1": "3530 W Cardinal Dr",
+    "city": "Beaumont",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77705"
+  },
+  {
+    "id": "customer-298",
+    "name": "Prime Doner",
+    "addressLine1": "601W 15th st",
+    "city": "Plano",
+    "state": "TX",
+    "country": "USA",
+    "zip": "75075"
+  },
+  {
+    "id": "customer-299",
+    "name": "Pump N Shop",
+    "addressLine1": "101 Shiloh Dr",
+    "city": "Laredo,",
+    "state": "TX",
+    "country": "USA",
+    "zip": "78045"
+  },
+  {
+    "id": "customer-300",
+    "name": "PUMP N SHOP 54 (BAYTOWN)",
+    "addressLine1": "2401 GARTH RD",
+    "city": "Baytown",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77520"
+  },
+  {
+    "id": "customer-301",
+    "name": "Qamaria Cafe Richmond",
+    "addressLine1": "Waterview Town Center Drive",
+    "city": "Richmond",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77407"
+  },
+  {
+    "id": "customer-302",
+    "name": "Qamaria Yemeni Coffee Co. DALLAS (5 star)",
+    "addressLine1": "1601 E Debbie Ln #1111",
+    "city": "Mansfield",
+    "state": "TX",
+    "country": "USA",
+    "zip": "76063"
+  },
+  {
+    "id": "customer-303",
+    "name": "Quality Wholesale TX",
+    "addressLine1": "8000 Harwin Dr. #190a",
+    "city": "Houston",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77036"
+  },
+  {
+    "id": "customer-304",
+    "name": "Raindrop Foundation of Oklahoma",
+    "addressLine1": "4444 calssen Blvd",
+    "city": "Oklahoma",
+    "state": "TX",
+    "country": "USA",
+    "zip": "73118"
+  },
+  {
+    "id": "customer-305",
+    "name": "Raindrop Foundation San Antonio",
+    "addressLine1": "4337 Vance Jackson Rd Ste#203",
+    "city": "San Antonio",
+    "state": "TX",
+    "country": "USA",
+    "zip": "78230"
+  },
+  {
+    "id": "customer-306",
+    "name": "Ramadan Halal Meat Market",
+    "addressLine1": "4750 Cypress Creek Pkwy",
+    "city": "Houston",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77069"
+  },
+  {
+    "id": "customer-307",
+    "name": "Ramallah bakery",
+    "addressLine1": "705 S Sherman St",
+    "city": "Richardson",
+    "state": "TX",
+    "country": "USA",
+    "zip": "75081"
+  },
+  {
+    "id": "customer-308",
+    "name": "RAVI'S Import Warehouse",
+    "addressLine1": "1029 Harry Hines Blvd",
+    "city": "Arlington",
+    "state": "TX",
+    "country": "USA",
+    "zip": "75229"
+  },
+  {
+    "id": "customer-309",
+    "name": "REGIONS STATION",
+    "addressLine1": "1737 Vidalia st",
+    "city": "Amarillo",
+    "state": "TX",
+    "country": "USA",
+    "zip": "79118"
+  },
+  {
+    "id": "customer-310",
+    "name": "RN International",
+    "addressLine1": "3909 W. Lawrence Ave",
+    "city": "Plano",
+    "state": "TX",
+    "country": "USA",
+    "zip": "60016"
+  },
+  {
+    "id": "customer-311",
+    "name": "Robles Products",
+    "addressLine1": "1784 ELSA",
+    "city": "Fort Worth",
+    "state": "TX",
+    "country": "USA",
+    "zip": "78543"
+  },
+  {
+    "id": "customer-312",
+    "name": "Rokhat Grill",
+    "addressLine1": "2205 n central expressway #180",
+    "city": "Plano",
+    "state": "TX",
+    "country": "USA",
+    "zip": "75075"
+  },
+  {
+    "id": "customer-313",
+    "name": "Royal Roastery NOLA",
+    "addressLine1": "1180 Terry Pkwy Ste 103",
+    "city": "Terrytown",
+    "state": "LA",
+    "country": "USA",
+    "zip": "70056"
+  },
+  {
+    "id": "customer-314",
+    "name": "Ruposhi Bangla",
+    "addressLine1": "South Texas 6 SH 6",
+    "city": "Houston",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77083"
+  },
+  {
+    "id": "customer-315",
+    "name": "Sababa Restaurant",
+    "addressLine1": "743 Brick Row Ste 100",
+    "city": "Richardson",
+    "state": "TX",
+    "country": "USA",
+    "zip": "75081"
+  },
+  {
+    "id": "customer-316",
+    "name": "SAFARI MEDITERRANEAN MARKET - ARLINGTON",
+    "addressLine1": "7221 Matlock Rd #143",
+    "city": "Arlington",
+    "state": "TX",
+    "country": "USA",
+    "zip": "76002"
+  },
+  {
+    "id": "customer-317",
+    "name": "SAFARI MEDITERRANEAN MARKET - Grand Prairie",
+    "addressLine1": "7501 LAKE RIDGE PKWY",
+    "city": "Grand Prairie",
+    "state": "TX",
+    "country": "USA",
+    "zip": "75054"
+  },
+  {
+    "id": "customer-318",
+    "name": "Salam Supermarket (HALAL)",
+    "addressLine1": "9780 Lyndon B Johnson Fwy suite 110",
+    "city": "Dallas",
+    "state": "TX",
+    "country": "USA",
+    "zip": "75243"
+  },
+  {
+    "id": "customer-319",
+    "name": "Salam usa llc",
+    "addressLine1": "329 n greenville ave",
+    "city": "Richardson",
+    "state": "TX",
+    "country": "USA",
+    "zip": "75081"
+  },
+  {
+    "id": "customer-320",
+    "name": "Samak Seafood Market and Cuisine",
+    "addressLine1": "25600 Westheimer Pkwy #100, Katy, TX",
+    "city": "Houston",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77494"
+  },
+  {
+    "id": "customer-321",
+    "name": "SANAS US TRADING LLC",
+    "addressLine1": "1605 PRIMROSE PL",
+    "city": "Allen",
+    "state": "TX",
+    "country": "USA",
+    "zip": "75002"
+  },
+  {
+    "id": "customer-322",
+    "name": "SARIGAMA INDIAN CAFE",
+    "addressLine1": "5427 N MAC ARTHUR BLVD",
+    "city": "Irving",
+    "state": "TX",
+    "country": "USA",
+    "zip": "75038"
+  },
+  {
+    "id": "customer-323",
+    "name": "SARIGAMA INDIAN CAFE 2",
+    "addressLine1": "5427 N MAC ARTHUR BLVD",
+    "city": "Irving",
+    "state": "TX",
+    "country": "USA",
+    "zip": "75038"
+  },
+  {
+    "id": "customer-324",
+    "name": "Savia USA",
+    "addressLine1": "6704 Parke E Blvd",
+    "city": "Houston",
+    "state": "TX",
+    "country": "USA",
+    "zip": "33610"
+  },
+  {
+    "id": "customer-325",
+    "name": "Selda Bakery",
+    "addressLine1": "101 S Coit Rd #10",
+    "city": "Richardson",
+    "state": "TX",
+    "country": "USA",
+    "zip": "75080"
+  },
+  {
+    "id": "customer-326",
+    "name": "SELDA LAS COLINAS",
+    "addressLine1": "7750 N MACARTHUR BLVD",
+    "city": "Irving",
+    "state": "TX",
+    "country": "USA",
+    "zip": "75063"
+  },
+  {
+    "id": "customer-327",
+    "name": "Selda restaurant",
+    "addressLine1": "6006\r\nBelt Line Road",
+    "city": "Houston",
+    "state": "TX",
+    "country": "USA",
+    "zip": "75254"
+  },
+  {
+    "id": "customer-328",
+    "name": "Sevinc Retail LLC",
+    "addressLine1": "700 Wooddale Terrace No 18",
+    "city": "Greenwood",
+    "state": "IN",
+    "country": "USA",
+    "zip": "46142"
+  },
+  {
+    "id": "customer-329",
+    "name": "Shaghf Coffe",
+    "addressLine1": "Promenade Way ste 100,",
+    "city": "Sugar Land",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77478"
+  },
+  {
+    "id": "customer-330",
+    "name": "Shawarma Al Reem",
+    "addressLine1": "100 S Central Expy #53",
+    "city": "Richardson",
+    "state": "TX",
+    "country": "USA",
+    "zip": "75080"
+  },
+  {
+    "id": "customer-331",
+    "name": "Shener's Family LLC",
+    "addressLine1": "820 E DOVE LOOP RD APT 1",
+    "city": "Grapevine",
+    "state": "TX",
+    "country": "USA",
+    "zip": "76051"
+  },
+  {
+    "id": "customer-332",
+    "name": "Shisha Cafe",
+    "addressLine1": "5500 Babcock Rd #101",
+    "city": "San Antonio",
+    "state": "TX",
+    "country": "USA",
+    "zip": "78240"
+  },
+  {
+    "id": "customer-333",
+    "name": "Silver star wholesale",
+    "addressLine1": "2605 joe field rd",
+    "city": "Rosenberg",
+    "state": "TX",
+    "country": "USA",
+    "zip": "75229"
+  },
+  {
+    "id": "customer-334",
+    "name": "Simit And Poacha vatoz",
+    "addressLine1": "12315 Westheimer Rd Ste D",
+    "city": "Houston",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77077"
+  },
+  {
+    "id": "customer-335",
+    "name": "Sintek North America",
+    "addressLine1": "1201 Fannin St Suite #262",
+    "city": "Houston",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77494"
+  },
+  {
+    "id": "customer-336",
+    "name": "Sky Blue Gelato LLC ( F&D LEGACY LLC)",
+    "addressLine1": "7140 Bishop Rd",
+    "city": "Plano",
+    "state": "TX",
+    "country": "USA",
+    "zip": "75024"
+  },
+  {
+    "id": "customer-337",
+    "name": "SO COFFEE LLC (Beans up-White Wing)",
+    "addressLine1": "5405 hwy 6 suite 100",
+    "city": "Missouri City",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77459"
+  },
+  {
+    "id": "customer-338",
+    "name": "Soccer Jersey Kiosk at front of Lush",
+    "addressLine1": "4322 country club blvd",
+    "city": "Cape Coral",
+    "state": "TX",
+    "country": "USA",
+    "zip": "33904"
+  },
+  {
+    "id": "customer-339",
+    "name": "Sooners Wholesale Inc",
+    "addressLine1": "1001 NW 4th St",
+    "city": "Oklahoma City",
+    "state": "OK",
+    "country": "USA",
+    "zip": "73106"
+  },
+  {
+    "id": "customer-340",
+    "name": "Spice bazaar",
+    "addressLine1": "University Boulevard",
+    "city": "Sugar Land",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77479"
+  },
+  {
+    "id": "customer-341",
+    "name": "SS TOBACCO DISTRIBUTOR LLC",
+    "addressLine1": "4018 N 3RD AVE",
+    "city": "Phoenix",
+    "state": "AZ",
+    "country": "USA",
+    "zip": "85338"
+  },
+  {
+    "id": "customer-342",
+    "name": "St. Mark Specialty Food Fresh Halal Market",
+    "addressLine1": "501 N Main St Suite 139",
+    "city": "Lewisville",
+    "state": "TX",
+    "country": "USA",
+    "zip": "76039"
+  },
+  {
+    "id": "customer-343",
+    "name": "Star importers and wholesalers",
+    "addressLine1": "2166 mountain industrial blvd",
+    "city": "Tucker",
+    "state": "GA",
+    "country": "USA",
+    "zip": "30084"
+  },
+  {
+    "id": "customer-344",
+    "name": "Star Pizzeria YELLOW ROCK",
+    "addressLine1": "10001 W Bellfort Ave",
+    "city": "Houston",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77031"
+  },
+  {
+    "id": "customer-345",
+    "name": "STMA Business, LLC",
+    "addressLine1": "12054 Starcrest DR",
+    "city": "San Antonio",
+    "state": "TX",
+    "country": "USA",
+    "zip": "78247"
+  },
+  {
+    "id": "customer-346",
+    "name": "Sugar - Sweets & Gelato",
+    "addressLine1": "1403 E Campbell Rd Suite 110",
+    "city": "Richardson",
+    "state": "TX",
+    "country": "USA",
+    "zip": "75081"
+  },
+  {
+    "id": "customer-347",
+    "name": "Sugarphoria",
+    "addressLine1": "2400 aviation Dr.\r\r\nd14",
+    "city": "Euless",
+    "state": "TX",
+    "country": "USA",
+    "zip": "75261"
+  },
+  {
+    "id": "customer-348",
+    "name": "Sultan Pepar Memorial",
+    "addressLine1": "Memorial City Mall suit#730",
+    "city": "Houston",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77024"
+  },
+  {
+    "id": "customer-349",
+    "name": "sultan pepper-Galleria Mall",
+    "addressLine1": "5015 Westheimer Rd",
+    "city": "Houston",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77056"
+  },
+  {
+    "id": "customer-350",
+    "name": "SULTAN Restaurant-McKinney",
+    "addressLine1": "3935 Lake Forest Drive STE 125",
+    "city": "Mckinney",
+    "state": "TX",
+    "country": "USA",
+    "zip": "75070"
+  },
+  {
+    "id": "customer-351",
+    "name": "Sultanpepper LLC",
+    "addressLine1": "Westheimer Road houston",
+    "city": "Houston",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77057"
+  },
+  {
+    "id": "customer-352",
+    "name": "Sunrise Wholesale & Distribution",
+    "addressLine1": "3760 Bloomfield Village Dr",
+    "city": "Macon",
+    "state": "TX",
+    "country": "USA",
+    "zip": "31206"
+  },
+  {
+    "id": "customer-353",
+    "name": "Sunshine Electronics",
+    "addressLine1": "8000 Harwin Dr. Suite 540",
+    "city": "Houston",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77036"
+  },
+  {
+    "id": "customer-354",
+    "name": "SWEET LOQUM ( MGE LLC)",
+    "addressLine1": "70 n Planchard Circle,",
+    "city": "The Woodland",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77382"
+  },
+  {
+    "id": "customer-355",
+    "name": "Tandoori Kabob House",
+    "addressLine1": "10728 Cypress Creek Pkwy",
+    "city": "Houston",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77040"
+  },
+  {
+    "id": "customer-356",
+    "name": "Target Trading, LLC",
+    "addressLine1": "13219 Stafford Ste A",
+    "city": "Missouri City",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77489"
+  },
+  {
+    "id": "customer-357",
+    "name": "Texas Jasmine Wholesale",
+    "addressLine1": "7051 Southwest Fwy, USE DOCK 5 for Delivery",
+    "city": "Houston",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77074"
+  },
+  {
+    "id": "customer-358",
+    "name": "TEXAS KING Restaurant & Meat",
+    "addressLine1": "3455 N Belt Line Rd #103",
+    "city": "Irving",
+    "state": "TX",
+    "country": "USA",
+    "zip": "75062"
+  },
+  {
+    "id": "customer-359",
+    "name": "Texas Wholesale",
+    "addressLine1": "2667 Northaven Drive",
+    "city": "Fort Worth",
+    "state": "TX",
+    "country": "USA",
+    "zip": "75229"
+  },
+  {
+    "id": "customer-360",
+    "name": "Texas Wholesale - Dallas",
+    "addressLine1": "2667 Northaven Rd",
+    "city": "San Antonio",
+    "state": "TX",
+    "country": "USA",
+    "zip": "75229"
+  },
+  {
+    "id": "customer-361",
+    "name": "Texas Wholesale ( SA)",
+    "addressLine1": "5025 Timberhill Dr #111",
+    "city": "San Antonio",
+    "state": "TX",
+    "country": "USA",
+    "zip": "78238"
+  },
+  {
+    "id": "customer-362",
+    "name": "The Butcher's Grille - Houston",
+    "addressLine1": "5740 San Felipe St #100",
+    "city": "Houston",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77057"
+  },
+  {
+    "id": "customer-363",
+    "name": "The Core Cafe",
+    "addressLine1": "9222 Louetta Rd",
+    "city": "Spring",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77379"
+  },
+  {
+    "id": "customer-364",
+    "name": "The Gelato Cone",
+    "addressLine1": "1403 E Campbell Rd Suite 110",
+    "city": "Richardson",
+    "state": "TX",
+    "country": "USA",
+    "zip": "75081"
+  },
+  {
+    "id": "customer-365",
+    "name": "The meat grinder (NOUR HALAL MEAT)",
+    "addressLine1": "8002 FM 1464 Suite 300",
+    "city": "Richmond",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77407"
+  },
+  {
+    "id": "customer-366",
+    "name": "Tiles Workshop - San Antonio",
+    "addressLine1": "109 Dove Haven Drive",
+    "city": "Wylie",
+    "state": "OH",
+    "country": "USA",
+    "zip": "75098"
+  },
+  {
+    "id": "customer-367",
+    "name": "Tiles Workshop Llc",
+    "addressLine1": "109 Dove Haven Dr.",
+    "city": "Wylie",
+    "state": "TX",
+    "country": "USA",
+    "zip": "75098"
+  },
+  {
+    "id": "customer-368",
+    "name": "Time piza",
+    "addressLine1": "6001 Hillcroft st: ste 300",
+    "city": "Houston",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77081"
+  },
+  {
+    "id": "customer-369",
+    "name": "Toys Land LLC",
+    "addressLine1": "2200 S 10th Street #162",
+    "city": "Mcallen",
+    "state": "TX",
+    "country": "USA",
+    "zip": "78503"
+  },
+  {
+    "id": "customer-370",
+    "name": "Try Before You Buy – Cheese Samples",
+    "addressLine1": "5072 Steadmont dr",
+    "city": "Houston",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77040"
+  },
+  {
+    "id": "customer-371",
+    "name": "Tuba Ozyalcin",
+    "addressLine1": "12250 S kirkwood Rd, 1018",
+    "city": "Stafford",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77477"
+  },
+  {
+    "id": "customer-372",
+    "name": "Tulip Grill & Bakery LLC",
+    "addressLine1": "11851 bandera rd suit#123",
+    "city": "Helotes",
+    "state": "TX",
+    "country": "USA",
+    "zip": "78203"
+  },
+  {
+    "id": "customer-373",
+    "name": "Turkish Cafe & Lounge",
+    "addressLine1": "8412 Preston Rd",
+    "city": "Plano",
+    "state": "TX",
+    "country": "USA",
+    "zip": "75024"
+  },
+  {
+    "id": "customer-374",
+    "name": "Two Brothers Halal Market",
+    "addressLine1": "Conrad Sauer Drive",
+    "city": "Houston",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77043"
+  },
+  {
+    "id": "customer-375",
+    "name": "Umart",
+    "addressLine1": "1805 W Campbell Rd, Garland, TX 75044",
+    "city": "Garland",
+    "state": "TX",
+    "country": "USA",
+    "zip": "75044"
+  },
+  {
+    "id": "customer-376",
+    "name": "Unique Imports INC",
+    "addressLine1": "10854 Kinghurst Dr",
+    "city": "Houston",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77099"
+  },
+  {
+    "id": "customer-377",
+    "name": "United Wholesale",
+    "addressLine1": "8000 Harwin Dr. Suit 175-180",
+    "city": "Houston",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77036"
+  },
+  {
+    "id": "customer-378",
+    "name": "Vogs coffe house",
+    "addressLine1": "10610 Gaston RD STE 190 KATY",
+    "city": "Katy",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77494"
+  },
+  {
+    "id": "customer-379",
+    "name": "Waterstone Ranch Turkish Farm",
+    "addressLine1": "14614 County Rd 820",
+    "city": "Rosharon",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77583"
+  },
+  {
+    "id": "customer-380",
+    "name": "Wholesales on wheels llc",
+    "addressLine1": "12323 Grossart LN",
+    "city": "Richmond",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77407"
+  },
+  {
+    "id": "customer-381",
+    "name": "World Food Express Rosenberg",
+    "addressLine1": "235 Minonite Rd #120",
+    "city": "Rosenberg",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77469"
+  },
+  {
+    "id": "customer-382",
+    "name": "World Food Warehouse",
+    "addressLine1": "13434 Floyd Cir",
+    "city": "Baton Rouge",
+    "state": "LA",
+    "country": "USA",
+    "zip": "75243"
+  },
+  {
+    "id": "customer-383",
+    "name": "WORLDFOOD EXPERSS SUGAR LAND",
+    "addressLine1": "10560 SYNOTT RD STEE 180",
+    "city": "Houston",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77498"
+  },
+  {
+    "id": "customer-384",
+    "name": "Yucca Grill Turkish Cuisine",
+    "addressLine1": "9222 Louetta Rd #100",
+    "city": "Spring",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77379"
+  },
+  {
+    "id": "customer-385",
+    "name": "Yusuf Osman",
+    "addressLine1": "10539 SUGARBRIDGE TRL",
+    "city": "Sugarland",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77498"
+  },
+  {
+    "id": "customer-386",
+    "name": "Zaatar Lebanese Grill",
+    "addressLine1": "9323 Wurzbach Rd",
+    "city": "San Antonio",
+    "state": "TX",
+    "country": "USA",
+    "zip": "78240"
+  },
+  {
+    "id": "customer-387",
+    "name": "Zaina Supermarket & Bakery",
+    "addressLine1": "2735 Fondren Rd, Houston, TX 77063",
+    "city": "Houston",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77063"
+  },
+  {
+    "id": "customer-388",
+    "name": "Zamani 2 International Market",
+    "addressLine1": "Riley Fuzzel Road",
+    "city": "Spring",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77386"
+  },
+  {
+    "id": "customer-389",
+    "name": "Zamani Market And Grocery",
+    "addressLine1": "9440 Louetta Rd",
+    "city": "Spring",
+    "state": "TX",
+    "country": "USA",
+    "zip": "77379"
+  },
+  {
+    "id": "customer-390",
+    "name": "Zamzam restaurant",
+    "addressLine1": "3913 n macarthur bvd",
+    "city": "War Acres",
+    "state": "TX",
+    "country": "USA",
+    "zip": "73122"
+  },
+  {
+    "id": "customer-391",
+    "name": "Zanobia grocery",
+    "addressLine1": "110 n range line rd",
+    "city": "Joplin",
+    "state": "MO",
+    "country": "USA",
+    "zip": "64801"
+  },
+  {
+    "id": "customer-392",
+    "name": "Zayd Halal Market",
+    "addressLine1": "6504 S state hwy 78",
+    "city": "Sachse",
+    "state": "TX",
+    "country": "USA",
+    "zip": "75048"
+  },
+  {
+    "id": "customer-393",
+    "name": "Zayn Global Market",
+    "addressLine1": "920 S Belt Line Rd\r\nSTE 110",
+    "city": "Allen",
+    "state": "TX",
+    "country": "USA",
+    "zip": "75019"
+  }
+]
