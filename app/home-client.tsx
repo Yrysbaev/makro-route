@@ -18,9 +18,9 @@ export default function HomeClient() {
         if (!response.ok) {
           throw new Error("Failed to load customers.");
         }
-        const data = (await response.json()) as { customers: Customer[] };
+        const data = (await response.json()) as { customers?: Customer[] };
         if (isMounted) {
-          setCustomers(data.customers);
+          setCustomers(Array.isArray(data.customers) ? data.customers : []);
         }
       } catch {
         if (isMounted) {

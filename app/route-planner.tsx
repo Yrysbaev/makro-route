@@ -1,88 +1,69 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import type { Customer } from "@/lib/customers";
 import styles from "./page.module.css";
 import makroLogo from "../makrofood.png";
 
-type StopStatus = "pending" | "delivered" | "skipped";
-
 type RouteStop = {
-  id: string;
-  customer: Customer;
+  stopId: string;
   position: number;
-  status: StopStatus;
+  status: "pending" | "delivered" | "skipped";
+  customerId: string;
+  customerName: string;
+  address: string;
+  city: string;
+  state: string;
+  zip: string;
 };
 
 type RoutePlannerProps = {
   customers: Customer[];
 };
 
-function renumberStops(stops: RouteStop[]): RouteStop[] {
-  return stops.map((stop, index) => ({ ...stop, position: index + 1 }));
-}
+type Trip = {
+  tripId: string;
+  status: "draft" | "in_progress" | "completed";
+  warehouseAddress: string;
+  stops: RouteStop[];
+};
 
-function mapsLink(stop: RouteStop): string {
-  const address = [
-    stop.customer.addressLine1,
-    stop.customer.city,
-    stop.customer.state,
-    stop.customer.country,
-    stop.customer.zip,
-  ]
-    .filter(Boolean)
-    .join(", ");
+type OptimizationSummary = {
+  totalKm: number;
+  totalSeconds: number;
+  totalMiles: number;
+  etaHouston: string;
+  warnings: string[];
+};
 
-  return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`;
-}
-
-function buildRoute(selectedCustomers: Customer[]): RouteStop[] {
-  return selectedCustomers.map((customer, index) => ({
-    id: `stop-${customer.id}`,
-    customer,
-    position: index + 1,
-    status: "pending",
-  }));
-}
-
-async function fetchRouteDistanceKm(
-  customersForDistance: Customer[],
-  warehouseAddress: string,
-): Promise<{ totalKm: number; unresolvedStops: number }> {
-  const response = await fetch("/api/route-distance", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      customers: customersForDistance,
-      warehouseAddress,
-    }),
-  });
-
-  if (!response.ok) {
-    throw new Error("Distance request failed");
+function formatDuration(totalSeconds: number): string {
+  const minutes = Math.round(totalSeconds / 60);
+  const hours = Math.floor(minutes / 60);
+  const mins = minutes % 60;
+  if (hours <= 0) {
+    return `${mins} min`;
   }
-
-  return (await response.json()) as { totalKm: number; unresolvedStops: number };
+  return `${hours}h ${mins}m`;
 }
 
 export function RoutePlanner({ customers }: RoutePlannerProps) {
+  const router = useRouter();
   const [query, setQuery] = useState("");
   const [warehouseAddress, setWarehouseAddress] = useState(
     "5072 Steadmont Dr, Houston, TX 77040",
   );
-  const [startLatitude, setStartLatitude] = useState<number | null>(null);
-  const [startLongitude, setStartLongitude] = useState<number | null>(null);
-  const [startSource, setStartSource] = useState<"address" | "location">("address");
-  const [locationStatus, setLocationStatus] = useState("");
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
-  const [routeStops, setRouteStops] = useState<RouteStop[]>([]);
-  const [currentStop, setCurrentStop] = useState(0);
-  const [isOptimizing, setIsOptimizing] = useState(false);
-  const [optimizeError, setOptimizeError] = useState("");
-  const [optimizedDistanceKm, setOptimizedDistanceKm] = useState<number | null>(null);
-  const [currentDistanceKm, setCurrentDistanceKm] = useState<number | null>(null);
-  const [unresolvedStops, setUnresolvedStops] = useState(0);
+  const [trip, setTrip] = useState<Trip | null>(null);
+  const [optimizationSummary, setOptimizationSummary] =
+    useState<OptimizationSummary | null>(null);
+  const [isCreating, setIsCreating] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
+  const [error, setError] = useState("");
+  const [nonGeocodedCustomerIds, setNonGeocodedCustomerIds] = useState<Set<string>>(
+    () => new Set(),
+  );
 
   const selectedSet = useMemo(() => new Set(selectedIds), [selectedIds]);
   const customerById = useMemo(
@@ -95,13 +76,14 @@ export function RoutePlanner({ customers }: RoutePlannerProps) {
     if (!search) {
       return customers;
     }
+    const lower = (value: unknown) => String(value ?? "").toLowerCase();
     return customers.filter((customer) => {
       return (
-        customer.name.toLowerCase().includes(search) ||
-        customer.city.toLowerCase().includes(search) ||
-        customer.state.toLowerCase().includes(search) ||
-        customer.addressLine1.toLowerCase().includes(search) ||
-        customer.zip.toLowerCase().includes(search)
+        lower(customer.name).includes(search) ||
+        lower(customer.city).includes(search) ||
+        lower(customer.state).includes(search) ||
+        lower(customer.addressLine1).includes(search) ||
+        lower(customer.zip).includes(search)
       );
     });
   }, [query, customers]);
@@ -111,65 +93,6 @@ export function RoutePlanner({ customers }: RoutePlannerProps) {
       .map((id) => customerById.get(id))
       .filter((customer): customer is Customer => customer !== undefined);
   }, [customerById, selectedIds]);
-
-  const activeStop = routeStops[currentStop];
-  const optimizedMiles =
-    optimizedDistanceKm === null ? null : optimizedDistanceKm * 0.621371;
-  const currentMiles = currentDistanceKm === null ? null : currentDistanceKm * 0.621371;
-  const deltaMiles =
-    optimizedMiles === null || currentMiles === null
-      ? null
-      : currentMiles - optimizedMiles;
-
-  useEffect(() => {
-    async function calculateDistance() {
-      if (routeStops.length === 0) {
-        setCurrentDistanceKm(null);
-        setUnresolvedStops(0);
-        return;
-      }
-
-      try {
-        const data = await fetchRouteDistanceKm(
-          routeStops.map((stop) => stop.customer),
-          warehouseAddress,
-        );
-        setCurrentDistanceKm(data.totalKm);
-        setUnresolvedStops(data.unresolvedStops);
-      } catch {
-        setCurrentDistanceKm(null);
-      }
-    }
-
-    void calculateDistance();
-  }, [routeStops, warehouseAddress, startLatitude, startLongitude, startSource]);
-
-  const requestLocationStart = () => {
-    if (!navigator.geolocation) {
-      setLocationStatus("Geolocation is not supported in this browser.");
-      return;
-    }
-
-    setLocationStatus("Requesting location permission...");
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        setStartLatitude(position.coords.latitude);
-        setStartLongitude(position.coords.longitude);
-        setStartSource("location");
-        setLocationStatus("Using your current location as route start.");
-      },
-      () => {
-        setLocationStatus("Location permission denied. Using warehouse address.");
-        setStartSource("address");
-      },
-      { enableHighAccuracy: true, timeout: 10000 },
-    );
-  };
-
-  const useWarehouseAddressStart = () => {
-    setStartSource("address");
-    setLocationStatus("Using warehouse address as route start.");
-  };
 
   const toggleCustomer = (customerId: string) => {
     setSelectedIds((prev) => {
@@ -181,77 +104,220 @@ export function RoutePlanner({ customers }: RoutePlannerProps) {
   };
 
   const createRoute = async () => {
-    setOptimizeError("");
-    setIsOptimizing(true);
+    setError("");
+    setIsCreating(true);
 
     try {
-      const response = await fetch("/api/optimize-route", {
+      const optimizeResponse = await fetch("/api/optimize-route", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           customers: selectedCustomers,
           warehouseAddress,
-          startLatitude: startSource === "location" ? startLatitude : undefined,
-          startLongitude: startSource === "location" ? startLongitude : undefined,
         }),
       });
-
-      if (!response.ok) {
-        throw new Error("Could not optimize route");
+      if (!optimizeResponse.ok) {
+        throw new Error("Could not optimize selected customers");
       }
 
-      const data = (await response.json()) as {
+      const optimized = (await optimizeResponse.json()) as {
         customers: Customer[];
-        totalKm: number;
-        unresolvedStops: number;
+        totalKm?: number;
+        totalSeconds?: number;
+        legEtas?: Array<{ etaHouston?: string }>;
+        warnings?: string[];
       };
-      const optimizedStops = buildRoute(data.customers);
-      setRouteStops(optimizedStops);
-      setCurrentStop(0);
 
-      // Keep baseline and current mileage on the exact same calculation path.
-      const distance = await fetchRouteDistanceKm(data.customers, warehouseAddress);
-      setOptimizedDistanceKm(distance.totalKm);
-      setCurrentDistanceKm(distance.totalKm);
-      setUnresolvedStops(distance.unresolvedStops);
+      const lastEta =
+        optimized.legEtas && optimized.legEtas.length > 0
+          ? optimized.legEtas[optimized.legEtas.length - 1]?.etaHouston || "-"
+          : "-";
+      const totalKm = Number.isFinite(optimized.totalKm) ? Number(optimized.totalKm) : 0;
+      const totalSeconds = Number.isFinite(optimized.totalSeconds)
+        ? Number(optimized.totalSeconds)
+        : 0;
+      setOptimizationSummary({
+        totalKm,
+        totalSeconds,
+        totalMiles: totalKm * 0.621371,
+        etaHouston: lastEta,
+        warnings: Array.isArray(optimized.warnings) ? optimized.warnings : [],
+      });
+
+      const optimizedIds = optimized.customers.map((customer) => customer.id);
+      const selectedIdsInOrder = selectedCustomers.map((customer) => customer.id);
+      const optimizedSet = new Set(optimizedIds);
+      const notInOptimized = selectedIdsInOrder.filter((id) => !optimizedSet.has(id));
+      const customerIdsForDraft =
+        optimizedIds.length > 0
+          ? [...optimizedIds, ...notInOptimized]
+          : selectedIdsInOrder;
+      const usedFallback = optimizedIds.length === 0;
+      const droppedCount = notInOptimized.length;
+      setNonGeocodedCustomerIds(new Set(notInOptimized));
+
+      const createResponse = await fetch("/api/trips", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          customerIds: customerIdsForDraft,
+          warehouseAddress,
+        }),
+      });
+      if (!createResponse.ok) {
+        const payload = (await createResponse.json()) as { error?: string };
+        throw new Error(payload.error ?? "Failed to create trip draft");
+      }
+      const data = (await createResponse.json()) as { trip?: Trip };
+      if (!data.trip || !Array.isArray(data.trip.stops)) {
+        throw new Error("Invalid trip response");
+      }
+      setTrip(data.trip);
+      if (usedFallback) {
+        setError(
+          "Optimization confidence was low for all stops. Draft created using selected order for manual review.",
+        );
+      } else if (droppedCount > 0) {
+        setError(
+          `${droppedCount} stop(s) could not be geocoded; added at the end in selection order. You can reorder or remove them in Route Review.`,
+        );
+      }
     } catch {
-      // Fallback keeps routing usable even if optimization endpoint fails.
-      setOptimizeError("Optimization failed. Using selected order.");
-      setRouteStops(buildRoute(selectedCustomers));
-      setCurrentStop(0);
-      setOptimizedDistanceKm(null);
-      setCurrentDistanceKm(null);
+      setError("Could not create route. Please try again.");
+      setOptimizationSummary(null);
+      setNonGeocodedCustomerIds(new Set());
     } finally {
-      setIsOptimizing(false);
+      setIsCreating(false);
     }
   };
 
-  const moveStop = (index: number, direction: "up" | "down") => {
-    setRouteStops((prev) => {
-      const target = direction === "up" ? index - 1 : index + 1;
-      if (target < 0 || target >= prev.length) {
-        return prev;
+  const moveStop = async (stopId: string, direction: "up" | "down") => {
+    if (!trip) {
+      return;
+    }
+    setIsSaving(true);
+    setError("");
+    try {
+      const response = await fetch(`/api/trips/${trip.tripId}/reorder`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ stopId, direction }),
+      });
+      if (!response.ok) {
+        const payload = (await response.json()) as { error?: string };
+        throw new Error(payload.error ?? "Failed to reorder stop");
       }
-      const next = [...prev];
-      const temp = next[index];
-      next[index] = next[target];
-      next[target] = temp;
-      return renumberStops(next);
+      const data = (await response.json()) as { trip?: Trip };
+      if (!data.trip || !Array.isArray(data.trip.stops)) {
+        throw new Error("Invalid trip response");
+      }
+      setTrip(data.trip);
+      void recalculateSummary(data.trip);
+    } catch {
+      setError("Could not reorder this stop.");
+    } finally {
+      setIsSaving(false);
+    }
+  };
+
+  const removeStop = async (stopId: string) => {
+    if (!trip) {
+      return;
+    }
+    setIsSaving(true);
+    setError("");
+    try {
+      const response = await fetch(`/api/trips/${trip.tripId}/stops/${stopId}`, {
+        method: "DELETE",
+      });
+      if (!response.ok) {
+        const payload = (await response.json()) as { error?: string };
+        throw new Error(payload.error ?? "Failed to remove stop");
+      }
+      const data = (await response.json()) as { trip?: Trip };
+      if (!data.trip || !Array.isArray(data.trip.stops)) {
+        throw new Error("Invalid trip response");
+      }
+      setTrip(data.trip);
+      void recalculateSummary(data.trip);
+    } catch {
+      setError("Could not remove this stop.");
+    } finally {
+      setIsSaving(false);
+    }
+  };
+
+  const recalculateSummary = async (nextTrip: Trip) => {
+    const orderedCustomers: Customer[] = nextTrip.stops.map((stop) => {
+      const source = customerById.get(stop.customerId);
+      return {
+        id: stop.customerId,
+        name: stop.customerName,
+        addressLine1: stop.address,
+        city: stop.city,
+        state: stop.state,
+        zip: stop.zip,
+        country: source?.country ?? "US",
+      };
     });
+
+    try {
+      const response = await fetch("/api/route-distance", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          customers: orderedCustomers,
+          warehouseAddress,
+        }),
+      });
+      if (!response.ok) {
+        return;
+      }
+      const payload = (await response.json()) as {
+        totalKm?: number;
+        totalSeconds?: number;
+        unresolvedStops?: number;
+      };
+      const totalKm = Number.isFinite(payload.totalKm) ? Number(payload.totalKm) : 0;
+      const totalSeconds = Number.isFinite(payload.totalSeconds) ? Number(payload.totalSeconds) : 0;
+      const unresolvedStops = Number.isFinite(payload.unresolvedStops)
+        ? Number(payload.unresolvedStops)
+        : 0;
+      setOptimizationSummary((prev) => ({
+        totalKm,
+        totalSeconds,
+        totalMiles: totalKm * 0.621371,
+        etaHouston: prev?.etaHouston ?? "-",
+        warnings:
+          unresolvedStops > 0
+            ? [`${unresolvedStops} stop(s) could not be geocoded for mileage/time estimate.`]
+            : (prev?.warnings ?? []),
+      }));
+    } catch {
+      // Keep previous summary if recalculation fails.
+    }
   };
 
-  const updateStopStatus = (stopId: string, status: StopStatus) => {
-    setRouteStops((prev) =>
-      prev.map((stop) => (stop.id === stopId ? { ...stop, status } : stop)),
-    );
-  };
-
-  const clearRoute = () => {
-    setRouteStops([]);
-    setCurrentStop(0);
-    setOptimizedDistanceKm(null);
-    setCurrentDistanceKm(null);
-    setUnresolvedStops(0);
+  const startTrip = async () => {
+    if (!trip) {
+      return;
+    }
+    setIsSaving(true);
+    setError("");
+    try {
+      const response = await fetch(`/api/trips/${trip.tripId}/start`, {
+        method: "PATCH",
+      });
+      if (!response.ok) {
+        const payload = (await response.json()) as { error?: string };
+        throw new Error(payload.error ?? "Failed to start trip");
+      }
+      router.push(`/trips/${trip.tripId}`);
+    } catch {
+      setError("Could not start the trip.");
+    } finally {
+      setIsSaving(false);
+    }
   };
 
   return (
@@ -272,7 +338,16 @@ export function RoutePlanner({ customers }: RoutePlannerProps) {
               <p>Loaded {customers.length} customers from Customers.xlsx.</p>
             </div>
           </div>
-          <div className={styles.counter}>Selected ({selectedIds.length})</div>
+          <div className={styles.actions}>
+            <button
+              type="button"
+              className={styles.btnMuted}
+              onClick={() => router.push("/history")}
+            >
+              History
+            </button>
+            <div className={styles.counter}>Selected ({selectedIds.length})</div>
+          </div>
         </header>
 
         <section className={styles.grid}>
@@ -290,27 +365,6 @@ export function RoutePlanner({ customers }: RoutePlannerProps) {
                 onChange={(event) => setWarehouseAddress(event.target.value)}
                 placeholder="e.g. 5072 Steadmont Dr, Houston, TX 77040"
               />
-              <div className={styles.actions}>
-                <button
-                  type="button"
-                  className={styles.btnMuted}
-                  onClick={requestLocationStart}
-                >
-                  Use my current location
-                </button>
-                <button
-                  type="button"
-                  className={styles.btnMuted}
-                  onClick={useWarehouseAddressStart}
-                >
-                  Use warehouse address
-                </button>
-              </div>
-              <p className={styles.meta}>
-                Start point:{" "}
-                {startSource === "location" ? "Current location" : "Warehouse address"}
-              </p>
-              {locationStatus ? <p className={styles.meta}>{locationStatus}</p> : null}
             </div>
             <input
               className={styles.search}
@@ -348,80 +402,65 @@ export function RoutePlanner({ customers }: RoutePlannerProps) {
               onClick={() => {
                 void createRoute();
               }}
-              disabled={selectedCustomers.length === 0 || isOptimizing}
+              disabled={selectedCustomers.length === 0 || isCreating}
             >
-              {isOptimizing
-                ? "Optimizing..."
+              {isCreating
+                ? "Creating draft..."
                 : `Create Route (${selectedCustomers.length})`}
             </button>
-            {optimizeError ? <p className={styles.errorText}>{optimizeError}</p> : null}
+            {error ? <p className={styles.errorText}>{error}</p> : null}
           </article>
 
           <article className={styles.card}>
             <div className={styles.sectionTitle}>
-              <h2>2) Route (Admin)</h2>
-              {routeStops.length > 0 ? (
-                <button className={styles.btnText} type="button" onClick={clearRoute}>
-                  Clear Route
-                </button>
-              ) : null}
+              <h2>2) Route Review</h2>
+              {trip ? <span className={styles.meta}>Trip ID: {trip.tripId}</span> : null}
             </div>
-            {routeStops.length > 0 ? (
+            {optimizationSummary ? (
               <div className={styles.stats}>
                 <p>
-                  Optimized (from warehouse):{" "}
-                  <strong>
-                    {optimizedMiles === null ? "-" : `${optimizedMiles.toFixed(1)} mi`}
-                  </strong>
+                  Mileage: <strong>{optimizationSummary.totalMiles.toFixed(1)} mi</strong>
                 </p>
                 <p>
-                  Current (from warehouse):{" "}
-                  <strong>
-                    {currentMiles === null ? "-" : `${currentMiles.toFixed(1)} mi`}
-                  </strong>
+                  Total travel:{" "}
+                  <strong>{formatDuration(optimizationSummary.totalSeconds)}</strong>
                 </p>
                 <p>
-                  Delta:{" "}
-                  <strong
-                    className={
-                      deltaMiles !== null && deltaMiles > 0
-                        ? styles.deltaWorse
-                        : styles.deltaBetter
-                    }
-                  >
-                    {deltaMiles === null
-                      ? "-"
-                      : `${deltaMiles > 0 ? "+" : ""}${deltaMiles.toFixed(1)} mi`}
-                  </strong>
+                  ETA (Houston): <strong>{optimizationSummary.etaHouston}</strong>
                 </p>
-                {unresolvedStops > 0 ? (
+                {optimizationSummary.warnings.length > 0 ? (
                   <p className={styles.statsNote}>
-                    {unresolvedStops} stop(s) missing valid ZIP and excluded from estimate.
+                    Warning: {optimizationSummary.warnings[0]}
                   </p>
                 ) : null}
               </div>
             ) : null}
-            {routeStops.length === 0 ? (
-              <p className={styles.empty}>Create route after selecting customers.</p>
+            {!trip ? (
+              <p className={styles.empty}>Create route draft after selecting customers.</p>
             ) : (
               <div className={styles.list}>
-                {routeStops.map((stop, index) => (
-                  <div className={styles.stopCard} key={stop.id}>
+                {trip.stops.map((stop, index) => (
+                  <div
+                    className={`${styles.stopCard} ${nonGeocodedCustomerIds.has(stop.customerId) ? styles.stopCardNoGeocode : ""}`.trim()}
+                    key={stop.stopId}
+                  >
                     <div className={styles.stopHeader}>
                       <span className={styles.stopNumber}>#{stop.position}</span>
                       <span className={styles.badge} data-status={stop.status}>
                         {stop.status}
                       </span>
                     </div>
-                    <strong>{stop.customer.name}</strong>
+                    <strong>{stop.customerName}</strong>
                     <p>
-                      {stop.customer.addressLine1}, {stop.customer.city}
+                      {stop.address}
                     </p>
                     <div className={styles.actions}>
                       <button
                         type="button"
                         className={styles.btnMuted}
-                        onClick={() => moveStop(index, "up")}
+                        onClick={() => {
+                          void moveStop(stop.stopId, "up");
+                        }}
                         disabled={index === 0}
                       >
                         Move up
@@ -429,117 +468,37 @@ export function RoutePlanner({ customers }: RoutePlannerProps) {
                       <button
                         type="button"
                         className={styles.btnMuted}
-                        onClick={() => moveStop(index, "down")}
-                        disabled={index === routeStops.length - 1}
+                        onClick={() => {
+                          void moveStop(stop.stopId, "down");
+                        }}
+                        disabled={index === trip.stops.length - 1}
                       >
                         Move down
+                      </button>
+                      <button
+                        type="button"
+                        className={styles.btnWarn}
+                        onClick={() => {
+                          void removeStop(stop.stopId);
+                        }}
+                      >
+                        Remove
                       </button>
                     </div>
                   </div>
                 ))}
               </div>
             )}
-          </article>
-
-          <article className={styles.card}>
-            <h2>3) Driver View</h2>
-            {activeStop ? (
-              <>
-                <div className={styles.driverCard}>
-                  <p className={styles.bigNumber}>#{activeStop.position}</p>
-                  <strong>{activeStop.customer.name}</strong>
-                  <p>
-                    {activeStop.customer.addressLine1}, {activeStop.customer.city}
-                  </p>
-                  <div className={styles.actions}>
-                    <a
-                      className={styles.btnPrimary}
-                      href={mapsLink(activeStop)}
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      Navigate
-                    </a>
-                    <button
-                      className={styles.btnSuccess}
-                      type="button"
-                      onClick={() => updateStopStatus(activeStop.id, "delivered")}
-                    >
-                      Delivered
-                    </button>
-                    <button
-                      className={styles.btnWarn}
-                      type="button"
-                      onClick={() => updateStopStatus(activeStop.id, "skipped")}
-                    >
-                      Skipped
-                    </button>
-                  </div>
-                  <div className={styles.actions}>
-                    <button
-                      className={styles.btnMuted}
-                      type="button"
-                      onClick={() => setCurrentStop((prev) => Math.max(prev - 1, 0))}
-                      disabled={currentStop === 0}
-                    >
-                      Previous
-                    </button>
-                    <button
-                      className={styles.btnMuted}
-                      type="button"
-                      onClick={() =>
-                        setCurrentStop((prev) => Math.min(prev + 1, routeStops.length - 1))
-                      }
-                      disabled={currentStop >= routeStops.length - 1}
-                    >
-                      Next
-                    </button>
-                  </div>
-                </div>
-
-                <div className={styles.driverListHeader}>All addresses</div>
-                <div className={styles.list}>
-                  {routeStops.map((stop, index) => (
-                    <div
-                      key={`driver-${stop.id}`}
-                      className={`${styles.stopCard} ${
-                        index === currentStop ? styles.activeStopCard : ""
-                      }`}
-                    >
-                      <div className={styles.stopHeader}>
-                        <span className={styles.stopNumber}>#{stop.position}</span>
-                        <span className={styles.badge} data-status={stop.status}>
-                          {stop.status}
-                        </span>
-                      </div>
-                      <strong>{stop.customer.name}</strong>
-                      <p>
-                        {stop.customer.addressLine1}, {stop.customer.city}
-                      </p>
-                      <div className={styles.actions}>
-                        <a
-                          className={styles.btnPrimary}
-                          href={mapsLink(stop)}
-                          target="_blank"
-                          rel="noreferrer"
-                        >
-                          Navigate
-                        </a>
-                        <button
-                          className={styles.btnMuted}
-                          type="button"
-                          onClick={() => setCurrentStop(index)}
-                        >
-                          Open stop
-                        </button>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </>
-            ) : (
-              <p className={styles.empty}>Driver view appears after route creation.</p>
-            )}
+            <button
+              className={styles.btnCreate}
+              type="button"
+              disabled={!trip || trip.stops.length === 0 || isSaving}
+              onClick={() => {
+                void startTrip();
+              }}
+            >
+              {isSaving ? "Saving..." : "Go to Trip"}
+            </button>
           </article>
         </section>
       </main>

@@ -6,9 +6,11 @@
     "dev": "next dev --webpack",
     "build": "next build --webpack",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "bootstrap:sheets": "node scripts/bootstrap-sheets.mjs"
   },
   "dependencies": {
+    "googleapis": "^171.4.0",
     "next": "16.1.6",
     "react": "19.2.3",
     "react-dom": "19.2.3",

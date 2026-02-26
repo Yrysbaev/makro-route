@@ -192,6 +192,11 @@
   padding: 10px;
 }
 
+.stopCardNoGeocode {
+  background: #fef3c7;
+  border-left: 4px solid #d97706;
+}
+
 .stopHeader {
   display: flex;
   justify-content: space-between;

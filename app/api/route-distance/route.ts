@@ -107,7 +107,7 @@ async function getCustomerPoint(
 async function drivingDistanceKm(
   points: Array<{ latitude: number; longitude: number }>,
   startPoint?: { latitude: number; longitude: number } | null,
-): Promise<number | null> {
+): Promise<{ distanceKm: number; durationSeconds: number } | null> {
   const coordinates: string[] = [];
   if (startPoint) {
     coordinates.push(`${startPoint.longitude},${startPoint.latitude}`);
@@ -117,7 +117,7 @@ async function drivingDistanceKm(
   }
 
   if (coordinates.length < 2) {
-    return 0;
+    return { distanceKm: 0, durationSeconds: 0 };
   }
 
   const url = `https://router.project-osrm.org/route/v1/driving/${coordinates.join(
@@ -129,10 +129,14 @@ async function drivingDistanceKm(
       return null;
     }
     const data = (await response.json()) as {
-      routes?: Array<{ distance?: number }>;
+      routes?: Array<{ distance?: number; duration?: number }>;
     };
     const meters = data.routes?.[0]?.distance;
-    return typeof meters === "number" ? meters / 1000 : null;
+    const durationSeconds = data.routes?.[0]?.duration;
+    if (typeof meters !== "number" || typeof durationSeconds !== "number") {
+      return null;
+    }
+    return { distanceKm: meters / 1000, durationSeconds };
   } catch {
     return null;
   }
@@ -148,7 +152,7 @@ export async function POST(request: Request) {
     const body = (await request.json()) as DistanceRequest;
     const customers = Array.isArray(body.customers) ? body.customers : [];
     if (customers.length === 0) {
-      return NextResponse.json({ totalKm: 0, unresolvedStops: 0 });
+      return NextResponse.json({ totalKm: 0, totalSeconds: 0, unresolvedStops: 0 });
     }
 
     const customerPoints = await Promise.all(
@@ -169,7 +173,7 @@ export async function POST(request: Request) {
 
     const unresolvedStops = customers.length - points.length;
     if (points.length <= 1) {
-      return NextResponse.json({ totalKm: 0, unresolvedStops });
+      return NextResponse.json({ totalKm: 0, totalSeconds: 0, unresolvedStops });
     }
 
     const addressPoint = body.warehouseAddress
@@ -196,8 +200,13 @@ export async function POST(request: Request) {
       prevLon = current.longitude;
     }
 
-    const drivingKm = await drivingDistanceKm(points, warehousePoint);
-    return NextResponse.json({ totalKm: drivingKm ?? totalKm, unresolvedStops });
+    const driving = await drivingDistanceKm(points, warehousePoint);
+    const fallbackSeconds = (totalKm / 40) * 3600;
+    return NextResponse.json({
+      totalKm: driving?.distanceKm ?? totalKm,
+      totalSeconds: driving?.durationSeconds ?? fallbackSeconds,
+      unresolvedStops,
+    });
   } catch {
     return NextResponse.json(
       { error: "Failed to calculate route distance" },
