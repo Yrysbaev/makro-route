@@ -43,7 +43,7 @@ Set these in **Vercel → Project → Settings → Environment Variables** (for 
 | `SESSION_SECRET` | **Yes** | Random secret for signing session cookies (e.g. `openssl rand -hex 32`). **Must be set in production.** |
 | `GOOGLE_SHEETS_SPREADSHEET_ID` | **Yes** | The ID of your Google Sheet (from the URL: `https://docs.google.com/spreadsheets/d/<THIS_ID>/edit`). |
 | `GOOGLE_SHEETS_CLIENT_EMAIL` | **Yes** | Service account email (e.g. `xxx@xxx.iam.gserviceaccount.com`). |
-| `GOOGLE_SHEETS_PRIVATE_KEY` | **Yes** | Private key from the service account JSON. Paste the full key including `-----BEGIN PRIVATE KEY-----` and `-----END PRIVATE KEY-----`. In Vercel you can paste as-is; escape newlines as `\n` if your key is in one line. |
+| `GOOGLE_SHEETS_PRIVATE_KEY` | **Yes** | Private key from the service account JSON. Include the full key with `-----BEGIN PRIVATE KEY-----` and `-----END PRIVATE KEY-----`. In Vercel: either paste as a single line (newlines will be fixed automatically), or use literal `\n` for line breaks. |
 | `GOOGLE_SHEETS_TAB_CUSTOMERS` | No | Sheet tab name for customers (default: `customers`). |
 | `GOOGLE_SHEETS_TAB_TRIPS` | No | Sheet tab name for trips (default: `trips`). |
 | `GOOGLE_SHEETS_TAB_TRIP_STOPS` | No | Sheet tab name for trip stops (default: `trip_stops`). |
