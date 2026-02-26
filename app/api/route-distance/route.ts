@@ -3,6 +3,8 @@ import zipcodes from "zipcodes";
 import type { Customer } from "@/lib/customers";
 import { getSessionUserFromCookieHeader } from "@/lib/auth";
 
+export const maxDuration = 30;
+
 type DistanceRequest = {
   customers?: Customer[];
   warehouseZip?: string;

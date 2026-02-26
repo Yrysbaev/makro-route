@@ -2,6 +2,9 @@ import { NextResponse } from "next/server";
 import type { Customer } from "@/lib/customers";
 import { getSessionUserFromCookieHeader } from "@/lib/auth";
 
+// Allow up to 60s so geocoding + OSRM matrix finish on Vercel (default is 10s)
+export const maxDuration = 60;
+
 type RouteRequest = {
   customers?: Customer[];
   warehouseAddress?: string;
@@ -665,10 +668,9 @@ export async function POST(request: Request) {
       body.startLongitude,
     );
     return NextResponse.json(optimized);
-  } catch {
-    return NextResponse.json(
-      { error: "Failed to optimize route" },
-      { status: 500 },
-    );
+  } catch (err) {
+    const message =
+      err instanceof Error ? err.message : "Failed to optimize route";
+    return NextResponse.json({ error: message }, { status: 500 });
   }
 }

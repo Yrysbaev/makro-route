@@ -118,3 +118,6 @@ For Docker, you can use a `Dockerfile` that runs `npm run build` and `npm start`
 
 - **Build fails on Vercel**  
   The project uses `next build --webpack`. Vercel runs `npm run build`, which already includes `--webpack`. If you overrode the build command in the dashboard, set it back to `npm run build`.
+
+- **Route creation fails on Vercel but works locally**  
+  The optimize step runs many external calls (geocoding, OSRM) and can hit Vercel’s function timeout. The app sets `maxDuration = 60` for the optimize and route-distance APIs. On the **Hobby** plan the limit may still be 10s; if you see a timeout or “Could not create route”, try fewer stops per route or upgrade to **Pro** for longer limits. The UI now shows the actual error message from the server to help debug.

@@ -116,11 +116,21 @@ export function RoutePlanner({ customers }: RoutePlannerProps) {
           warehouseAddress,
         }),
       });
+      const optimizePayload = (await optimizeResponse.json()) as {
+        error?: string;
+        customers?: Customer[];
+        totalKm?: number;
+        totalSeconds?: number;
+        legEtas?: Array<{ etaHouston?: string }>;
+        warnings?: string[];
+      };
       if (!optimizeResponse.ok) {
-        throw new Error("Could not optimize selected customers");
+        throw new Error(
+          optimizePayload.error ?? "Could not optimize selected customers",
+        );
       }
 
-      const optimized = (await optimizeResponse.json()) as {
+      const optimized = optimizePayload as {
         customers: Customer[];
         totalKm?: number;
         totalSeconds?: number;
@@ -182,8 +192,10 @@ export function RoutePlanner({ customers }: RoutePlannerProps) {
           `${droppedCount} stop(s) could not be geocoded; added at the end in selection order. You can reorder or remove them in Route Review.`,
         );
       }
-    } catch {
-      setError("Could not create route. Please try again.");
+    } catch (err) {
+      const message =
+        err instanceof Error ? err.message : "Could not create route. Please try again.";
+      setError(message);
       setOptimizationSummary(null);
       setNonGeocodedCustomerIds(new Set());
     } finally {
