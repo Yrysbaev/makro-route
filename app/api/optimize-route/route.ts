@@ -8,6 +8,7 @@ export const maxDuration = 60;
 type RouteRequest = {
   customers?: Customer[];
   warehouseAddress?: string;
+  endAddress?: string;
   startLatitude?: number;
   startLongitude?: number;
 };
@@ -53,9 +54,12 @@ const HOUSTON_TZ = "America/Chicago";
 const STOP_QUALITY_THRESHOLD = 0.55;
 const LOW_CONFIDENCE_THRESHOLD = 0.35;
 const MATRIX_CACHE_TTL_MS = 30 * 60 * 1000;
+const MAX_OSRM_TABLE_POINTS = 50;
 
 const geocodeCache = new Map<string, GeocodeResult | null>();
 const matrixCache = new Map<string, { expiresAt: number; matrix: Matrix }>();
+let lastNominatimCall = 0;
+const NOMINATIM_MIN_INTERVAL_MS = 1100;
 
 const toRadians = (value: number) => (value * Math.PI) / 180;
 function haversineKm(lat1: number, lon1: number, lat2: number, lon2: number): number {
@@ -86,6 +90,13 @@ async function geocodeAddress(
   const candidates: GeocodeResult[] = [];
 
   try {
+    const now = Date.now();
+    const wait = NOMINATIM_MIN_INTERVAL_MS - (now - lastNominatimCall);
+    if (wait > 0) {
+      await new Promise((r) => setTimeout(r, wait));
+    }
+    lastNominatimCall = Date.now();
+
     const endpoint = `https://nominatim.openstreetmap.org/search?format=json&addressdetails=1&limit=1&q=${encodeURIComponent(
       address,
     )}`;
@@ -323,7 +334,11 @@ async function buildDrivingMatrix(
   }
 }
 
-function evaluateRoute(order: number[], matrix: Matrix): { seconds: number; km: number } {
+function evaluateRoute(
+  order: number[],
+  matrix: Matrix,
+  endIndex?: number,
+): { seconds: number; km: number } {
   let seconds = 0;
   let km = 0;
   let prev = 0; // warehouse/start node
@@ -331,6 +346,10 @@ function evaluateRoute(order: number[], matrix: Matrix): { seconds: number; km: 
     seconds += matrix.durations[prev][node] ?? Number.POSITIVE_INFINITY;
     km += matrix.distances[prev][node] ?? Number.POSITIVE_INFINITY;
     prev = node;
+  }
+  if (typeof endIndex === "number" && endIndex !== prev) {
+    seconds += matrix.durations[prev][endIndex] ?? 0;
+    km += matrix.distances[prev][endIndex] ?? 0;
   }
   return { seconds, km };
 }
@@ -343,12 +362,20 @@ function isBetter(a: { seconds: number; km: number }, b: { seconds: number; km: 
 }
 
 function nearestNeighborSeed(stopCount: number, matrix: Matrix): number[] {
+  return nearestNeighborFrom(0, stopCount, matrix);
+}
+
+function nearestNeighborFrom(
+  startNode: number,
+  stopCount: number,
+  matrix: Matrix,
+): number[] {
   const remaining = new Set<number>();
   for (let i = 1; i <= stopCount; i += 1) {
     remaining.add(i);
   }
   const order: number[] = [];
-  let current = 0;
+  let current = startNode;
 
   while (remaining.size > 0) {
     let bestNode = -1;
@@ -371,13 +398,31 @@ function nearestNeighborSeed(stopCount: number, matrix: Matrix): number[] {
   return order;
 }
 
-function runTwoOpt(order: number[], matrix: Matrix): number[] {
+function farthestFirstSeed(stopCount: number, matrix: Matrix): number[] {
+  if (stopCount <= 0) return [];
+  let farthest = 1;
+  let maxDist = matrix.distances[0][1] ?? 0;
+  for (let i = 2; i <= stopCount; i += 1) {
+    const d = matrix.distances[0][i] ?? 0;
+    if (d > maxDist) {
+      maxDist = d;
+      farthest = i;
+    }
+  }
+  return nearestNeighborFrom(farthest, stopCount, matrix);
+}
+
+function runTwoOpt(
+  order: number[],
+  matrix: Matrix,
+  endIndex?: number,
+): number[] {
   if (order.length < 4) return order;
   let best = [...order];
-  let bestScore = evaluateRoute(best, matrix);
+  let bestScore = evaluateRoute(best, matrix, endIndex);
   let improved = true;
   let iterations = 0;
-  while (improved && iterations < 12) {
+  while (improved && iterations < 30) {
     improved = false;
     iterations += 1;
     for (let i = 0; i < best.length - 2; i += 1) {
@@ -387,7 +432,7 @@ function runTwoOpt(order: number[], matrix: Matrix): number[] {
           ...best.slice(i, k + 1).reverse(),
           ...best.slice(k + 1),
         ];
-        const score = evaluateRoute(candidate, matrix);
+        const score = evaluateRoute(candidate, matrix, endIndex);
         if (isBetter(score, bestScore)) {
           best = candidate;
           bestScore = score;
@@ -399,13 +444,17 @@ function runTwoOpt(order: number[], matrix: Matrix): number[] {
   return best;
 }
 
-function runThreeOpt(order: number[], matrix: Matrix): number[] {
+function runThreeOpt(
+  order: number[],
+  matrix: Matrix,
+  endIndex?: number,
+): number[] {
   if (order.length < 6) return order;
   let best = [...order];
-  let bestScore = evaluateRoute(best, matrix);
+  let bestScore = evaluateRoute(best, matrix, endIndex);
   let improved = true;
   let iterations = 0;
-  while (improved && iterations < 4) {
+  while (improved && iterations < 6) {
     improved = false;
     iterations += 1;
     for (let i = 1; i < best.length - 4; i += 1) {
@@ -416,15 +465,20 @@ function runThreeOpt(order: number[], matrix: Matrix): number[] {
           const c = best.slice(j, k);
           const d = best.slice(k);
 
+          const bRev = [...b].reverse();
+          const cRev = [...c].reverse();
           const candidates = [
             [...a, ...c, ...b, ...d],
-            [...a, ...b.reverse(), ...c, ...d],
-            [...a, ...b, ...c.reverse(), ...d],
-            [...a, ...c.reverse(), ...b.reverse(), ...d],
+            [...a, ...c, ...bRev, ...d],
+            [...a, ...cRev, ...b, ...d],
+            [...a, ...cRev, ...bRev, ...d],
+            [...a, ...bRev, ...c, ...d],
+            [...a, ...b, ...cRev, ...d],
+            [...a, ...bRev, ...cRev, ...d],
           ];
 
           for (const candidate of candidates) {
-            const score = evaluateRoute(candidate, matrix);
+            const score = evaluateRoute(candidate, matrix, endIndex);
             if (isBetter(score, bestScore)) {
               best = candidate;
               bestScore = score;
@@ -453,6 +507,7 @@ function formatHoustonEta(date: Date): string {
 async function optimizeCustomers(
   customers: Customer[],
   warehouseAddress?: string,
+  endAddress?: string,
   startLatitude?: number,
   startLongitude?: number,
 ): Promise<OptimizationResult> {
@@ -555,19 +610,46 @@ async function optimizeCustomers(
     }
   }
 
+  const endAddressToUse = endAddress?.trim() || warehouseAddress?.trim();
+  let endPoint: { latitude: number; longitude: number } | null = null;
+  if (endAddressToUse) {
+    const geo = await geocodeAddress(endAddressToUse);
+    if (geo) {
+      endPoint = { latitude: geo.latitude, longitude: geo.longitude };
+    } else {
+      warnings.push("End address could not be geocoded. Route will not include return leg.");
+    }
+  }
+
   const coordinates = [
     startPoint
       ? { latitude: startPoint.latitude, longitude: startPoint.longitude }
       : { latitude: geocoded[0].latitude, longitude: geocoded[0].longitude },
     ...geocoded.map((point) => ({ latitude: point.latitude, longitude: point.longitude })),
+    ...(endPoint ? [endPoint] : []),
   ];
+  const endIndex = endPoint ? coordinates.length - 1 : undefined;
 
-  const matrix = await buildDrivingMatrix(coordinates);
-  const seed = nearestNeighborSeed(geocoded.length, matrix);
-  const twoOpt = runTwoOpt(seed, matrix);
-  const threeOpt = runThreeOpt(twoOpt, matrix);
-  const bestOrder = threeOpt;
-  const score = evaluateRoute(bestOrder, matrix);
+  let matrix: Matrix;
+  if (coordinates.length > MAX_OSRM_TABLE_POINTS) {
+    warnings.push(
+      `More than ${MAX_OSRM_TABLE_POINTS} points: using straight-line distance for ordering. Mileage may differ from driving.`,
+    );
+    matrix = buildHaversineMatrix(coordinates);
+  } else {
+    matrix = await buildDrivingMatrix(coordinates);
+  }
+
+  const stopCount = geocoded.length;
+  const nnSeed = nearestNeighborSeed(stopCount, matrix);
+  const farSeed = farthestFirstSeed(stopCount, matrix);
+  const twoOptNn = runTwoOpt(nnSeed, matrix, endIndex);
+  const twoOptFar = runTwoOpt(farSeed, matrix, endIndex);
+  const scoreNn = evaluateRoute(twoOptNn, matrix, endIndex);
+  const scoreFar = evaluateRoute(twoOptFar, matrix, endIndex);
+  const bestAfterTwoOpt = isBetter(scoreNn, scoreFar) ? twoOptNn : twoOptFar;
+  const bestOrder = runThreeOpt(bestAfterTwoOpt, matrix, endIndex);
+  const score = evaluateRoute(bestOrder, matrix, endIndex);
 
   const orderedPoints = bestOrder.map((nodeIndex) => geocoded[nodeIndex - 1]);
   const orderedCustomers = [
@@ -580,21 +662,41 @@ async function optimizeCustomers(
   let cumulativeSec = 0;
   let prevNode = 0;
   const now = new Date();
-  const legEtas = orderedPoints.map((point, idx) => {
+  const legEtas: Array<{
+    stopId: string;
+    customerName: string;
+    legDurationSec: number;
+    legDistanceKm: number;
+    etaHouston: string;
+  }> = [];
+  for (let idx = 0; idx < orderedPoints.length; idx += 1) {
+    const point = orderedPoints[idx];
     const node = bestOrder[idx];
     const legDurationSec = matrix.durations[prevNode][node] ?? 0;
     const legDistanceKm = matrix.distances[prevNode][node] ?? 0;
     cumulativeSec += legDurationSec;
     const eta = new Date(now.getTime() + cumulativeSec * 1000);
     prevNode = node;
-    return {
+    legEtas.push({
       stopId: point.pointId,
       customerName: point.customer.name,
       legDurationSec: Math.max(0, Math.round(legDurationSec)),
       legDistanceKm: Number(legDistanceKm.toFixed(2)),
       etaHouston: formatHoustonEta(eta),
-    };
-  });
+    });
+  }
+  if (typeof endIndex === "number") {
+    const legDurationSec = matrix.durations[prevNode][endIndex] ?? 0;
+    const legDistanceKm = matrix.distances[prevNode][endIndex] ?? 0;
+    cumulativeSec += legDurationSec;
+    legEtas.push({
+      stopId: "end",
+      customerName: "Return to end location",
+      legDurationSec: Math.max(0, Math.round(legDurationSec)),
+      legDistanceKm: Number(legDistanceKm.toFixed(2)),
+      etaHouston: formatHoustonEta(new Date(now.getTime() + cumulativeSec * 1000)),
+    });
+  }
 
   const averageGeocodeQuality =
     (geocodedHigh.length + geocodedLow.length) > 0
@@ -664,6 +766,7 @@ export async function POST(request: Request) {
     const optimized = await optimizeCustomers(
       customers,
       body.warehouseAddress,
+      body.endAddress,
       body.startLatitude,
       body.startLongitude,
     );

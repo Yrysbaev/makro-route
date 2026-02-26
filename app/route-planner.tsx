@@ -54,6 +54,9 @@ export function RoutePlanner({ customers }: RoutePlannerProps) {
   const [warehouseAddress, setWarehouseAddress] = useState(
     "5072 Steadmont Dr, Houston, TX 77040",
   );
+  const [endAddress, setEndAddress] = useState(
+    "5072 Steadmont Dr, Houston, TX 77040",
+  );
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
   const [trip, setTrip] = useState<Trip | null>(null);
   const [optimizationSummary, setOptimizationSummary] =
@@ -88,6 +91,15 @@ export function RoutePlanner({ customers }: RoutePlannerProps) {
     });
   }, [query, customers]);
 
+  const customersWithSelectedFirst = useMemo(() => {
+    const selected = selectedIds
+      .map((id) => customerById.get(id))
+      .filter((c): c is Customer => c !== undefined);
+    const selectedIdsSet = new Set(selectedIds);
+    const rest = filteredCustomers.filter((c) => !selectedIdsSet.has(c.id));
+    return [...selected, ...rest];
+  }, [filteredCustomers, customerById, selectedIds]);
+
   const selectedCustomers = useMemo(() => {
     return selectedIds
       .map((id) => customerById.get(id))
@@ -114,6 +126,7 @@ export function RoutePlanner({ customers }: RoutePlannerProps) {
         body: JSON.stringify({
           customers: selectedCustomers,
           warehouseAddress,
+          endAddress: endAddress.trim() || warehouseAddress,
         }),
       });
       const optimizePayload = (await optimizeResponse.json()) as {
@@ -280,6 +293,7 @@ export function RoutePlanner({ customers }: RoutePlannerProps) {
         body: JSON.stringify({
           customers: orderedCustomers,
           warehouseAddress,
+          endAddress: endAddress.trim() || warehouseAddress,
         }),
       });
       if (!response.ok) {
@@ -367,7 +381,7 @@ export function RoutePlanner({ customers }: RoutePlannerProps) {
             <h2>1) Customer Picker</h2>
             <div className={styles.inlineControls}>
               <label className={styles.fieldLabel} htmlFor="warehouse-address">
-                Warehouse address
+                Start (warehouse) address
               </label>
               <input
                 id="warehouse-address"
@@ -378,6 +392,19 @@ export function RoutePlanner({ customers }: RoutePlannerProps) {
                 placeholder="e.g. 5072 Steadmont Dr, Houston, TX 77040"
               />
             </div>
+            <div className={styles.inlineControls}>
+              <label className={styles.fieldLabel} htmlFor="end-address">
+                End (return) address
+              </label>
+              <input
+                id="end-address"
+                className={styles.search}
+                type="text"
+                value={endAddress}
+                onChange={(event) => setEndAddress(event.target.value)}
+                placeholder="Same as start by default"
+              />
+            </div>
             <input
               className={styles.search}
               type="text"
@@ -386,7 +413,7 @@ export function RoutePlanner({ customers }: RoutePlannerProps) {
               placeholder="Type company, city, state, or zip"
             />
             <div className={styles.list}>
-              {filteredCustomers.map((customer) => {
+              {customersWithSelectedFirst.map((customer) => {
                 const selected = selectedSet.has(customer.id);
                 return (
                   <div className={styles.row} key={customer.id}>

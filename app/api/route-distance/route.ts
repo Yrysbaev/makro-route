@@ -9,6 +9,7 @@ type DistanceRequest = {
   customers?: Customer[];
   warehouseZip?: string;
   warehouseAddress?: string;
+  endAddress?: string;
 };
 
 const toRadians = (value: number) => (value * Math.PI) / 180;
@@ -109,6 +110,7 @@ async function getCustomerPoint(
 async function drivingDistanceKm(
   points: Array<{ latitude: number; longitude: number }>,
   startPoint?: { latitude: number; longitude: number } | null,
+  endPoint?: { latitude: number; longitude: number } | null,
 ): Promise<{ distanceKm: number; durationSeconds: number } | null> {
   const coordinates: string[] = [];
   if (startPoint) {
@@ -116,6 +118,9 @@ async function drivingDistanceKm(
   }
   for (const point of points) {
     coordinates.push(`${point.longitude},${point.latitude}`);
+  }
+  if (endPoint) {
+    coordinates.push(`${endPoint.longitude},${endPoint.latitude}`);
   }
 
   if (coordinates.length < 2) {
@@ -190,6 +195,14 @@ export async function POST(request: Request) {
         ? getZipPoint(addressZip)
         : null;
     const warehousePoint = addressPoint ?? zipFallback;
+    // Mileage always: warehouse (start) → stops in order → end address (default: warehouse)
+    const endAddressRaw =
+      typeof body.endAddress === "string" && body.endAddress.trim()
+        ? body.endAddress.trim()
+        : "";
+    const endPoint = endAddressRaw
+      ? await geocodeAddress(endAddressRaw)
+      : warehousePoint;
     let totalKm = 0;
     let prevLat = warehousePoint?.latitude ?? points[0].latitude;
     let prevLon = warehousePoint?.longitude ?? points[0].longitude;
@@ -201,8 +214,11 @@ export async function POST(request: Request) {
       prevLat = current.latitude;
       prevLon = current.longitude;
     }
+    if (endPoint) {
+      totalKm += haversineKm(prevLat, prevLon, endPoint.latitude, endPoint.longitude);
+    }
 
-    const driving = await drivingDistanceKm(points, warehousePoint);
+    const driving = await drivingDistanceKm(points, warehousePoint, endPoint ?? undefined);
     const fallbackSeconds = (totalKm / 40) * 3600;
     return NextResponse.json({
       totalKm: driving?.distanceKm ?? totalKm,
