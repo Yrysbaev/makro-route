@@ -21,21 +21,11 @@ type SessionPayload = {
 };
 
 const DRIVER_ACCOUNTS: DriverAccount[] = [
-  {
-    username: "Maksatbek_Yrysbaev",
-    password: "Makro#D1-2026",
-    fullName: "Houston Driver 1",
-  },
-  {
-    username: "driver_houston_2",
-    password: "Makro#D2-2026",
-    fullName: "Houston Driver 2",
-  },
-  {
-    username: "driver_houston_3",
-    password: "Makro#D3-2026",
-    fullName: "Houston Driver 3",
-  },
+  { username: "Maksatbek_K", password: "Makro1", fullName: "Maksatbek K" },
+  { username: "Zhakshylyk", password: "Makro2", fullName: "Zhakshylyk" },
+  { username: "Seyitbek", password: "Makro3", fullName: "Seyitbek" },
+  { username: "Maksatbek_Yrysbaev", password: "Makro4", fullName: "Maksatbek Yrysbaev" },
+  { username: "Office", password: "Makro5", fullName: "Office" },
 ];
 
 const SESSION_TTL_SECONDS = 60 * 60 * 12;
