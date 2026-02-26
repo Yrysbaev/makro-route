@@ -100,6 +100,13 @@ export function RoutePlanner({ customers }: RoutePlannerProps) {
     return [...selected, ...rest];
   }, [filteredCustomers, customerById, selectedIds]);
 
+  const customerListToShow = useMemo(() => {
+    if (query.trim()) {
+      return filteredCustomers.filter((c) => !selectedSet.has(c.id));
+    }
+    return customersWithSelectedFirst;
+  }, [query, filteredCustomers, selectedSet, customersWithSelectedFirst]);
+
   const selectedCustomers = useMemo(() => {
     return selectedIds
       .map((id) => customerById.get(id))
@@ -413,7 +420,7 @@ export function RoutePlanner({ customers }: RoutePlannerProps) {
               placeholder="Type company, city, state, or zip"
             />
             <div className={styles.list}>
-              {customersWithSelectedFirst.map((customer) => {
+              {customerListToShow.map((customer) => {
                 const selected = selectedSet.has(customer.id);
                 return (
                   <div className={styles.row} key={customer.id}>
