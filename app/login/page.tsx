@@ -95,6 +95,7 @@ export default function LoginPage() {
               background: "#0d4f8f",
               color: "#ffffff",
               caretColor: "#ffffff",
+              fontSize: 16,
             }}
           />
         </label>
@@ -116,6 +117,7 @@ export default function LoginPage() {
               background: "#0d4f8f",
               color: "#ffffff",
               caretColor: "#ffffff",
+              fontSize: 16,
             }}
           />
         </label>
