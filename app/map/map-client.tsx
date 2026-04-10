@@ -52,13 +52,13 @@ function aggregateByZip(markers: MapMarker[]): ZipBucket[] {
     .sort((a, b) => a.zip.localeCompare(b.zip));
 }
 
-/** Lighter green = fewer locations in ZIP; darker green = more (same scale across all ZIPs). */
+/** Blue scale: reads well on OSM (avoids clashing with parks/landuse greens). Lighter = fewer, darker = more. */
 function densityFillColor(count: number, min: number, max: number): string {
   if (max <= 0) return "#e5e7eb";
   const t = max === min ? 1 : (count - min) / (max - min);
-  const sat = 22 + t * 58;
-  const light = 90 - t * 58;
-  return `hsl(142, ${sat}%, ${light}%)`;
+  const sat = 28 + t * 62;
+  const light = 91 - t * 58;
+  return `hsl(218, ${sat}%, ${light}%)`;
 }
 
 export default function MapClient() {
@@ -123,7 +123,7 @@ export default function MapClient() {
         return {
           fillColor: densityFillColor(count, minC, maxCount),
           fillOpacity: 0.52,
-          color: "#15803d",
+          color: "#2563eb",
           weight: 1.25,
           opacity: 0.88,
         };
@@ -146,7 +146,7 @@ export default function MapClient() {
               lyr.setStyle({
                 fillOpacity: 0.72,
                 weight: 2,
-                color: "#166534",
+                color: "#1d4ed8",
               });
             },
             mouseout: (e) => {
@@ -337,7 +337,7 @@ export default function MapClient() {
                 <>
                   {zipBuckets.length} ZIP areas · {markers.length} locations plotted
                   {meta.total !== markers.length ? ` (of ${meta.total} customers)` : ""}.
-                  Areas are real ZIP boundaries (Census ZCTA). Green fill: lighter = fewer
+                  Areas are real ZIP boundaries (Census ZCTA). Blue fill: lighter = fewer
                   customers in that ZIP, darker = more.
                 </>
               ) : meta ? (
@@ -380,7 +380,7 @@ export default function MapClient() {
                     verticalAlign: "middle",
                     border: "1px solid #cbd5e1",
                     background:
-                      "linear-gradient(to right, hsl(142, 28%, 92%), hsl(145, 72%, 24%))",
+                      "linear-gradient(to right, hsl(218, 40%, 93%), hsl(222, 78%, 28%))",
                   }}
                 />
                 <span style={{ marginLeft: 10, verticalAlign: "middle" }}>More</span>
