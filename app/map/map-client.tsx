@@ -61,11 +61,6 @@ function densityFillColor(count: number, min: number, max: number): string {
   return `hsl(142, ${sat}%, ${light}%)`;
 }
 
-function densityRadius(count: number, max: number): number {
-  if (max <= 0) return 8;
-  return 6 + Math.sqrt(count / max) * 22;
-}
-
 export default function MapClient() {
   const router = useRouter();
   const mapRef = useRef<HTMLDivElement>(null);
@@ -80,8 +75,17 @@ export default function MapClient() {
   } | null>(null);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
+  const [geoJson, setGeoJson] = useState<GeoJSON.FeatureCollection | null>(null);
+  const [geoLoading, setGeoLoading] = useState(false);
+  const [geoError, setGeoError] = useState("");
 
   const zipBuckets = useMemo(() => aggregateByZip(markers), [markers]);
+
+  /** Fetch ZIP polygons only when the set of ZIPs changes (not when counts alone change). */
+  const sortedZipKey = useMemo(
+    () => [...new Set(zipBuckets.map((b) => b.zip))].sort().join(","),
+    [zipBuckets],
+  );
 
   const densityRange = useMemo(() => {
     if (zipBuckets.length === 0) return { min: 0, max: 0 };
@@ -89,43 +93,78 @@ export default function MapClient() {
     return { min: Math.min(...counts), max: Math.max(...counts) };
   }, [zipBuckets]);
 
-  const initMap = useCallback((buckets: ZipBucket[], minC: number, maxC: number) => {
-    if (!mapRef.current || buckets.length === 0) return;
+  const initMapPolygons = useCallback(
+    (
+      fc: GeoJSON.FeatureCollection,
+      buckets: ZipBucket[],
+      minC: number,
+      maxC: number,
+    ) => {
+      if (!mapRef.current || !fc.features?.length || buckets.length === 0) return;
 
-    if (mapInstanceRef.current) {
-      mapInstanceRef.current.remove();
-      mapInstanceRef.current = null;
-    }
+      if (mapInstanceRef.current) {
+        mapInstanceRef.current.remove();
+        mapInstanceRef.current = null;
+      }
 
-    const map = L.map(mapRef.current).setView([29.76, -95.37], 9);
-    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-      attribution: "&copy; OpenStreetMap contributors",
-    }).addTo(map);
+      const countByZip = new Map(buckets.map((b) => [b.zip, b.count]));
+      const maxCount = maxC;
 
-    const bounds = L.latLngBounds([]);
-
-    for (const b of buckets) {
-      const fill = densityFillColor(b.count, minC, maxC);
-      const radius = densityRadius(b.count, maxC);
-      const marker = L.circleMarker([b.lat, b.lng], {
-        radius,
-        color: "#ffffff",
-        weight: 2,
-        fillColor: fill,
-        fillOpacity: 0.92,
+      const map = L.map(mapRef.current).setView([29.76, -95.37], 9);
+      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        attribution: "&copy; OpenStreetMap contributors",
       }).addTo(map);
-      marker.bindPopup(
-        `<strong>ZIP ${escapeHtml(b.zip)}</strong><br>${b.count} customer${b.count === 1 ? "" : "s"} in this ZIP`,
-      );
-      bounds.extend([b.lat, b.lng]);
-    }
 
-    if (bounds.isValid()) {
-      map.fitBounds(bounds, { padding: [40, 40], maxZoom: 12 });
-    }
+      const styleFor = (feature: GeoJSON.Feature): L.PathOptions => {
+        const zip = String(
+          (feature.properties as Record<string, unknown> | null)?.ZCTA5 ?? "",
+        );
+        const count = countByZip.get(zip) ?? 0;
+        return {
+          fillColor: densityFillColor(count, minC, maxCount),
+          fillOpacity: 0.52,
+          color: "#15803d",
+          weight: 1.25,
+          opacity: 0.88,
+        };
+      };
 
-    mapInstanceRef.current = map;
-  }, []);
+      let geoLayer: L.GeoJSON;
+      geoLayer = L.geoJSON(fc, {
+        style: (feature) => styleFor(feature as GeoJSON.Feature),
+        onEachFeature: (feature, layer) => {
+          const zip = String(
+            (feature.properties as Record<string, unknown> | null)?.ZCTA5 ?? "",
+          );
+          const count = countByZip.get(zip) ?? 0;
+          layer.bindPopup(
+            `<strong>ZIP ${escapeHtml(zip)}</strong><br>${count} customer${count === 1 ? "" : "s"} in this ZIP`,
+          );
+          layer.on({
+            mouseover: (e) => {
+              const lyr = e.target as L.Path;
+              lyr.setStyle({
+                fillOpacity: 0.72,
+                weight: 2,
+                color: "#166534",
+              });
+            },
+            mouseout: (e) => {
+              geoLayer.resetStyle(e.target);
+            },
+          });
+        },
+      }).addTo(map);
+
+      const b = geoLayer.getBounds();
+      if (b.isValid()) {
+        map.fitBounds(b, { padding: [48, 48], maxZoom: 11 });
+      }
+
+      mapInstanceRef.current = map;
+    },
+    [],
+  );
 
   useEffect(() => {
     let cancelled = false;
@@ -208,18 +247,84 @@ export default function MapClient() {
   }, [router]);
 
   useEffect(() => {
-    if (!loading && zipBuckets.length > 0) {
-      initMap(zipBuckets, densityRange.min, densityRange.max);
+    if (loading || sortedZipKey.length === 0) {
+      return;
     }
+    let cancelled = false;
+    setGeoLoading(true);
+    setGeoError("");
+    setGeoJson(null);
+
+    void (async () => {
+      try {
+        const response = await fetch("/api/map-zip-geometries", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          credentials: "same-origin",
+          body: JSON.stringify({
+            zips: sortedZipKey.split(",").filter(Boolean),
+          }),
+        });
+        if (!response.ok) {
+          throw new Error("boundaries");
+        }
+        const data = (await response.json()) as GeoJSON.FeatureCollection;
+        if (!cancelled) {
+          if (!data.features?.length) {
+            setGeoError("No ZIP area shapes returned. Try again later.");
+          } else {
+            setGeoJson(data);
+          }
+        }
+      } catch {
+        if (!cancelled) {
+          setGeoError("Could not load ZIP area boundaries from the Census map service.");
+        }
+      } finally {
+        if (!cancelled) setGeoLoading(false);
+      }
+    })();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [loading, sortedZipKey]);
+
+  useEffect(() => {
+    if (
+      loading ||
+      geoLoading ||
+      geoError ||
+      !geoJson?.features?.length ||
+      zipBuckets.length === 0
+    ) {
+      return;
+    }
+    initMapPolygons(geoJson, zipBuckets, densityRange.min, densityRange.max);
     return () => {
       if (mapInstanceRef.current) {
         mapInstanceRef.current.remove();
         mapInstanceRef.current = null;
       }
     };
-  }, [loading, zipBuckets, densityRange.min, densityRange.max, initMap]);
+  }, [
+    loading,
+    geoLoading,
+    geoError,
+    geoJson,
+    zipBuckets,
+    densityRange.min,
+    densityRange.max,
+    initMapPolygons,
+  ]);
 
-  const canShowMap = !loading && !error && zipBuckets.length > 0;
+  const canShowMap =
+    !loading &&
+    !error &&
+    !geoLoading &&
+    !geoError &&
+    zipBuckets.length > 0 &&
+    Boolean(geoJson?.features?.length);
 
   return (
     <div className={styles.page}>
@@ -232,8 +337,8 @@ export default function MapClient() {
                 <>
                   {zipBuckets.length} ZIP areas · {markers.length} locations plotted
                   {meta.total !== markers.length ? ` (of ${meta.total} customers)` : ""}.
-                  Green shading: lighter = fewer locations in that ZIP, darker = more. Size also
-                  reflects volume slightly.
+                  Areas are real ZIP boundaries (Census ZCTA). Green fill: lighter = fewer
+                  customers in that ZIP, darker = more.
                 </>
               ) : meta ? (
                 ""
@@ -241,7 +346,7 @@ export default function MapClient() {
               {meta && meta.zipOnlyMode ? (
                 <span>
                   {" "}
-                  Pin positions use ZIP centroids (fast mode). Set{" "}
+                  Customer positions use ZIP centroids for geocoding (fast mode). Set{" "}
                   <code>MAP_STREET_GEOCODE=1</code> for street-level coordinates.
                 </span>
               ) : null}
@@ -309,6 +414,10 @@ export default function MapClient() {
           <p className={styles.meta}>
             No valid US ZIP codes to group. Check that customer rows include 5-digit ZIPs.
           </p>
+        ) : geoLoading ? (
+          <p className={styles.meta}>Loading ZIP area outlines…</p>
+        ) : geoError ? (
+          <p className={styles.errorText}>{geoError}</p>
         ) : (
           <div
             ref={mapRef}
