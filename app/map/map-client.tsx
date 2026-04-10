@@ -184,33 +184,42 @@ export default function MapClient() {
             <h1>Customer map</h1>
             <p className={styles.meta}>
               {meta
-                ? `${markers.length} pins on the map (of ${meta.total} customers). Green: street-level (US Census). Blue: street-level (OpenStreetMap). Orange: ZIP centroid only (approximate).`
+                ? `${markers.length} pins on the map (of ${meta.total} customers).`
                 : ""}
-              {meta && meta.zipFallbackCount > 0 ? (
-                <span>
-                  {" "}
-                  {meta.zipFallbackCount === 1
-                    ? "One location uses a ZIP centroid only."
-                    : `${meta.zipFallbackCount} locations use ZIP centroids only.`}
-                </span>
-              ) : null}
-              {meta && meta.skipped > 0 ? (
-                <span> {meta.skipped} could not be placed.</span>
-              ) : null}
-              {meta && meta.nominatimCutShort ? (
-                <span>
-                  {" "}
-                  Street lookup (OpenStreetMap) stopped early for some rows due to a time
-                  limit; those use ZIP centroids instead. Refresh to retry.
-                </span>
-              ) : null}
               {meta && meta.zipOnlyMode ? (
                 <span>
                   {" "}
-                  This deployment uses ZIP centroids only (fast mode for Vercel time limits).
-                  For street-level pins, set MAP_STREET_GEOCODE=1 and use a plan with longer
-                  function timeouts (e.g. Vercel Pro).
+                  Pins are placed using each customer’s ZIP code from your data (center of
+                  that ZIP area — not the exact street). All orange pins are
+                  expected in this mode. Street address geocoding is turned off on the server
+                  so the map loads quickly on Vercel. To try Census/OpenStreetMap street pins
+                  instead, set env <code>MAP_STREET_GEOCODE=1</code> and use a hosting plan
+                  with a long enough function timeout (e.g. Vercel Pro).
                 </span>
+              ) : (
+                <>
+                  {meta
+                    ? " Green: street-level (US Census). Blue: street-level (OpenStreetMap). Orange: ZIP centroid only (approximate)."
+                    : ""}
+                  {meta && meta.zipFallbackCount > 0 ? (
+                    <span>
+                      {" "}
+                      {meta.zipFallbackCount === 1
+                        ? "One location uses a ZIP centroid only."
+                        : `${meta.zipFallbackCount} locations use ZIP centroids only.`}
+                    </span>
+                  ) : null}
+                  {meta && meta.nominatimCutShort ? (
+                    <span>
+                      {" "}
+                      Street lookup (OpenStreetMap) stopped early for some rows due to a time
+                      limit; those use ZIP centroids instead. Refresh to retry.
+                    </span>
+                  ) : null}
+                </>
+              )}
+              {meta && meta.skipped > 0 ? (
+                <span> {meta.skipped} could not be placed (missing or invalid US ZIP).</span>
               ) : null}
             </p>
             {meta && markers.length > 0 ? (
