@@ -1,11 +1,9 @@
 import { NextResponse } from "next/server";
-import zipcodes from "zipcodes";
 import { loadCustomers } from "@/lib/customers";
 import { getSessionUserFromCookieHeader } from "@/lib/auth";
+import { geocodeAllCustomersForMap } from "@/lib/map-geocode";
 
-function normalizeZip(zip: string): string {
-  return zip.trim().slice(0, 5);
-}
+export const maxDuration = 120;
 
 export type MapMarker = {
   id: string;
@@ -15,6 +13,7 @@ export type MapMarker = {
   city: string;
   state: string;
   zip: string;
+  source: "census" | "nominatim" | "zip";
 };
 
 export async function GET(request: Request) {
@@ -25,35 +24,25 @@ export async function GET(request: Request) {
 
   try {
     const customers = await loadCustomers();
-    const markers: MapMarker[] = [];
-    let skippedNoZip = 0;
+    const { pins, skipped, zipFallbackCount } =
+      await geocodeAllCustomersForMap(customers);
 
-    for (const c of customers) {
-      const zip = normalizeZip(c.zip);
-      if (!/^\d{5}$/.test(zip)) {
-        skippedNoZip += 1;
-        continue;
-      }
-      const lookup = zipcodes.lookup(zip);
-      if (!lookup) {
-        skippedNoZip += 1;
-        continue;
-      }
-      markers.push({
-        id: c.id,
-        name: c.name,
-        lat: lookup.latitude,
-        lng: lookup.longitude,
-        city: c.city,
-        state: c.state,
-        zip: c.zip,
-      });
-    }
+    const markers: MapMarker[] = pins.map((p) => ({
+      id: p.customer.id,
+      name: p.customer.name,
+      lat: p.lat,
+      lng: p.lng,
+      city: p.customer.city,
+      state: p.customer.state,
+      zip: p.customer.zip,
+      source: p.source,
+    }));
 
     return NextResponse.json({
       markers,
       totalCustomers: customers.length,
-      skippedNoZip,
+      skippedNoZip: skipped,
+      zipFallbackCount,
     });
   } catch {
     return NextResponse.json(

@@ -57,7 +57,7 @@ The mobile app can:
   - Success: `200`, `{ user: { username, fullName } }`, and `Set-Cookie: makro_route_session=...`  
   - Failure: `401` `{ error: "Invalid username or password" }`
 - `POST /api/auth/logout`  
-  - No body. Clears session cookie. Call after login to “log out” (mobile can clear local token/cookie store).
+  - No body. Clears the session cookie. Call this when the user logs out (mobile clients can also clear local token or cookie storage).
 
 **Protected APIs:** All other APIs require the session cookie (or, if you add it, `Authorization: Bearer <token>`). Missing/invalid auth → `401 { error: "Unauthorized" }`.
 

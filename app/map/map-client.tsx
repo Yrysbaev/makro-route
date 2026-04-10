@@ -6,6 +6,8 @@ import L from "leaflet";
 import { useRouter } from "next/navigation";
 import styles from "../page.module.css";
 
+type MapPinSource = "census" | "nominatim" | "zip";
+
 type MapMarker = {
   id: string;
   name: string;
@@ -14,6 +16,19 @@ type MapMarker = {
   city: string;
   state: string;
   zip: string;
+  source?: MapPinSource;
+};
+
+const SOURCE_LABEL: Record<MapPinSource, string> = {
+  census: "Street (US Census)",
+  nominatim: "Street (OpenStreetMap)",
+  zip: "ZIP area (approximate)",
+};
+
+const SOURCE_COLOR: Record<MapPinSource, string> = {
+  census: "#16a34a",
+  nominatim: "#2563eb",
+  zip: "#d97706",
 };
 
 export default function MapClient() {
@@ -21,7 +36,11 @@ export default function MapClient() {
   const mapRef = useRef<HTMLDivElement>(null);
   const mapInstanceRef = useRef<L.Map | null>(null);
   const [markers, setMarkers] = useState<MapMarker[]>([]);
-  const [meta, setMeta] = useState<{ total: number; skipped: number } | null>(null);
+  const [meta, setMeta] = useState<{
+    total: number;
+    skipped: number;
+    zipFallbackCount: number;
+  } | null>(null);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
 
@@ -38,20 +57,21 @@ export default function MapClient() {
       attribution: "&copy; OpenStreetMap contributors",
     }).addTo(map);
 
-    const icon = L.icon({
-      iconUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png",
-      iconRetinaUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png",
-      shadowUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png",
-      iconSize: [25, 41],
-      iconAnchor: [12, 41],
-    });
-
     const bounds = L.latLngBounds([]);
 
     for (const m of data) {
-      const marker = L.marker([m.lat, m.lng], { icon }).addTo(map);
+      const source: MapPinSource = m.source ?? "zip";
+      const fill = SOURCE_COLOR[source];
+      const marker = L.circleMarker([m.lat, m.lng], {
+        radius: 9,
+        color: "#ffffff",
+        weight: 2,
+        fillColor: fill,
+        fillOpacity: 0.92,
+      }).addTo(map);
+      const label = SOURCE_LABEL[source];
       marker.bindPopup(
-        `<strong>${escapeHtml(m.name)}</strong><br>${escapeHtml(m.city)}, ${escapeHtml(m.state)} ${escapeHtml(m.zip)}`,
+        `<strong>${escapeHtml(m.name)}</strong><br>${escapeHtml(m.city)}, ${escapeHtml(m.state)} ${escapeHtml(m.zip)}<br><span style="font-size:12px;opacity:.85">${escapeHtml(label)}</span>`,
       );
       bounds.extend([m.lat, m.lng]);
     }
@@ -77,12 +97,14 @@ export default function MapClient() {
           markers?: MapMarker[];
           totalCustomers?: number;
           skippedNoZip?: number;
+          zipFallbackCount?: number;
         };
         if (cancelled) return;
         setMarkers(Array.isArray(data.markers) ? data.markers : []);
         setMeta({
           total: data.totalCustomers ?? 0,
           skipped: data.skippedNoZip ?? 0,
+          zipFallbackCount: data.zipFallbackCount ?? 0,
         });
       } catch {
         if (!cancelled) setError("Could not load customer locations.");
@@ -117,13 +139,60 @@ export default function MapClient() {
             <h1>Customer map</h1>
             <p className={styles.meta}>
               {meta
-                ? `${markers.length} pins on map (of ${meta.total} customers). Pins use ZIP
-              area centers — approximate where you deliver.`
+                ? `${markers.length} pins on the map (of ${meta.total} customers). Green: street-level (US Census). Blue: street-level (OpenStreetMap). Orange: ZIP centroid only (approximate).`
                 : ""}
+              {meta && meta.zipFallbackCount > 0 ? (
+                <span>
+                  {" "}
+                  {meta.zipFallbackCount === 1
+                    ? "One location uses a ZIP centroid only."
+                    : `${meta.zipFallbackCount} locations use ZIP centroids only.`}
+                </span>
+              ) : null}
               {meta && meta.skipped > 0 ? (
-                <span> {meta.skipped} skipped (invalid ZIP).</span>
+                <span> {meta.skipped} could not be placed.</span>
               ) : null}
             </p>
+            {meta && markers.length > 0 ? (
+              <p className={styles.meta} style={{ marginTop: 4 }}>
+                <span
+                  style={{
+                    display: "inline-block",
+                    width: 10,
+                    height: 10,
+                    borderRadius: "50%",
+                    background: SOURCE_COLOR.census,
+                    marginRight: 6,
+                    verticalAlign: "middle",
+                  }}
+                />
+                Census
+                <span
+                  style={{
+                    display: "inline-block",
+                    width: 10,
+                    height: 10,
+                    borderRadius: "50%",
+                    background: SOURCE_COLOR.nominatim,
+                    margin: "0 6px 0 12px",
+                    verticalAlign: "middle",
+                  }}
+                />
+                OSM
+                <span
+                  style={{
+                    display: "inline-block",
+                    width: 10,
+                    height: 10,
+                    borderRadius: "50%",
+                    background: SOURCE_COLOR.zip,
+                    margin: "0 6px 0 12px",
+                    verticalAlign: "middle",
+                  }}
+                />
+                ZIP only
+              </p>
+            ) : null}
           </div>
           <button
             type="button"
