@@ -17,7 +17,7 @@ export type MapMarker = {
   zip: string;
 };
 
-export async function GET() {
+export async function GET(request: Request) {
   const user = getSessionUserFromCookieHeader(request.headers.get("cookie"));
   if (!user) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
