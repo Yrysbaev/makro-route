@@ -88,7 +88,9 @@ export default function MapClient() {
   useEffect(() => {
     let cancelled = false;
     const controller = new AbortController();
-    const timeoutId = window.setTimeout(() => controller.abort(), 118_000);
+    /** Street geocoding + large Sheets can exceed 2 min; ZIP-only is usually seconds. */
+    const MAP_FETCH_TIMEOUT_MS = 300_000;
+    const timeoutId = window.setTimeout(() => controller.abort(), MAP_FETCH_TIMEOUT_MS);
 
     async function load() {
       setError("");
@@ -146,7 +148,7 @@ export default function MapClient() {
             err instanceof DOMException && err.name === "AbortError";
           setError(
             aborted
-              ? "Loading the map timed out. Try again, or ask your admin to check server time limits if you have many customers."
+              ? "The map request timed out (5 minute limit). Try again. For a fast map on Vercel, leave MAP_STREET_GEOCODE unset (ZIP-only pins). Street-level geocoding can take many minutes."
               : "Could not load customer locations. Check your network and try again.",
           );
         }

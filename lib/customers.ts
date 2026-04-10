@@ -11,9 +11,19 @@ export type Customer = {
   zip: string;
 };
 
+const SHEETS_READ_TIMEOUT_MS = 90_000;
+
 export async function loadCustomers(): Promise<Customer[]> {
   try {
-    const rows = await readSheetRows(getTabName("customers"));
+    const rows = await Promise.race([
+      readSheetRows(getTabName("customers")),
+      new Promise<never>((_, reject) => {
+        setTimeout(
+          () => reject(new Error("Google Sheets read timed out")),
+          SHEETS_READ_TIMEOUT_MS,
+        );
+      }),
+    ]);
     const customers = rows
       .map((row, index) => {
         const name = row.name || row["Company name"] || row.company_name || "";
