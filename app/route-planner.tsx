@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import type { Customer } from "@/lib/customers";
 import styles from "./page.module.css";
@@ -372,6 +373,9 @@ export function RoutePlanner({ customers }: RoutePlannerProps) {
             </div>
           </div>
           <div className={styles.actions}>
+            <Link className={styles.btnMuted} href="/map">
+              Customer map
+            </Link>
             <button
               type="button"
               className={styles.btnMuted}

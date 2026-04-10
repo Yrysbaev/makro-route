@@ -56,7 +56,6 @@ The mobile app can:
   - Body: `{ "username": string, "password": string }`  
   - Success: `200`, `{ user: { username, fullName } }`, and `Set-Cookie: makro_route_session=...`  
   - Failure: `401` `{ error: "Invalid username or password" }`
-
 - `POST /api/auth/logout`  
   - No body. Clears session cookie. Call after login to “log out” (mobile can clear local token/cookie store).
 
