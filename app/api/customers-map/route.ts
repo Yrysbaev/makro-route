@@ -3,7 +3,18 @@ import { loadCustomers } from "@/lib/customers";
 import { getSessionUserFromCookieHeader } from "@/lib/auth";
 import { geocodeAllCustomersForMap } from "@/lib/map-geocode";
 
+/** Pro / long-running: Census + Nominatim. Vercel Hobby (~10s) cannot finish that for many rows — use ZIP-only unless this is set. */
 export const maxDuration = 120;
+
+function useZipOnlyMapGeocode(): boolean {
+  if (process.env.MAP_STREET_GEOCODE === "1") {
+    return false;
+  }
+  if (process.env.MAP_ZIP_ONLY === "1") {
+    return true;
+  }
+  return process.env.VERCEL === "1";
+}
 
 export type MapMarker = {
   id: string;
@@ -24,8 +35,9 @@ export async function GET(request: Request) {
 
   try {
     const customers = await loadCustomers();
-    const { pins, skipped, zipFallbackCount } =
-      await geocodeAllCustomersForMap(customers);
+    const zipOnly = useZipOnlyMapGeocode();
+    const { pins, skipped, zipFallbackCount, nominatimCutShort, zipOnlyMode } =
+      await geocodeAllCustomersForMap(customers, { zipOnly });
 
     const markers: MapMarker[] = pins.map((p) => ({
       id: p.customer.id,
@@ -43,8 +55,11 @@ export async function GET(request: Request) {
       totalCustomers: customers.length,
       skippedNoZip: skipped,
       zipFallbackCount,
+      nominatimCutShort,
+      zipOnlyMode,
     });
-  } catch {
+  } catch (err) {
+    console.error("[customers-map]", err);
     return NextResponse.json(
       { error: "Failed to build customer map" },
       { status: 500 },

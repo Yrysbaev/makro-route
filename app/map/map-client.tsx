@@ -40,6 +40,8 @@ export default function MapClient() {
     total: number;
     skipped: number;
     zipFallbackCount: number;
+    nominatimCutShort: boolean;
+    zipOnlyMode: boolean;
   } | null>(null);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
@@ -85,19 +87,49 @@ export default function MapClient() {
 
   useEffect(() => {
     let cancelled = false;
+    const controller = new AbortController();
+    const timeoutId = window.setTimeout(() => controller.abort(), 118_000);
 
     async function load() {
       setError("");
       try {
-        const response = await fetch("/api/customers-map", { cache: "no-store" });
-        if (!response.ok) {
-          throw new Error("Failed to load map data");
+        const response = await fetch("/api/customers-map", {
+          cache: "no-store",
+          signal: controller.signal,
+        });
+
+        if (response.status === 401) {
+          if (!cancelled) {
+            setError("Your session expired. Redirecting to sign in…");
+            router.replace("/login");
+          }
+          return;
         }
+
+        if (!response.ok) {
+          let detail = "Could not load customer locations.";
+          try {
+            const body = (await response.json()) as { error?: string };
+            if (typeof body.error === "string" && body.error.trim()) {
+              detail = body.error.trim();
+            }
+          } catch {
+            if (response.status === 504 || response.status === 502) {
+              detail =
+                "The map server took too long to respond. Try again in a moment, or ask your admin to check hosting time limits.";
+            }
+          }
+          if (!cancelled) setError(detail);
+          return;
+        }
+
         const data = (await response.json()) as {
           markers?: MapMarker[];
           totalCustomers?: number;
           skippedNoZip?: number;
           zipFallbackCount?: number;
+          nominatimCutShort?: boolean;
+          zipOnlyMode?: boolean;
         };
         if (cancelled) return;
         setMarkers(Array.isArray(data.markers) ? data.markers : []);
@@ -105,10 +137,21 @@ export default function MapClient() {
           total: data.totalCustomers ?? 0,
           skipped: data.skippedNoZip ?? 0,
           zipFallbackCount: data.zipFallbackCount ?? 0,
+          nominatimCutShort: data.nominatimCutShort ?? false,
+          zipOnlyMode: data.zipOnlyMode ?? false,
         });
-      } catch {
-        if (!cancelled) setError("Could not load customer locations.");
+      } catch (err) {
+        if (!cancelled) {
+          const aborted =
+            err instanceof DOMException && err.name === "AbortError";
+          setError(
+            aborted
+              ? "Loading the map timed out. Try again, or ask your admin to check server time limits if you have many customers."
+              : "Could not load customer locations. Check your network and try again.",
+          );
+        }
       } finally {
+        window.clearTimeout(timeoutId);
         if (!cancelled) setLoading(false);
       }
     }
@@ -116,8 +159,10 @@ export default function MapClient() {
     void load();
     return () => {
       cancelled = true;
+      controller.abort();
+      window.clearTimeout(timeoutId);
     };
-  }, []);
+  }, [router]);
 
   useEffect(() => {
     if (!loading && markers.length > 0) {
@@ -151,6 +196,21 @@ export default function MapClient() {
               ) : null}
               {meta && meta.skipped > 0 ? (
                 <span> {meta.skipped} could not be placed.</span>
+              ) : null}
+              {meta && meta.nominatimCutShort ? (
+                <span>
+                  {" "}
+                  Street lookup (OpenStreetMap) stopped early for some rows due to a time
+                  limit; those use ZIP centroids instead. Refresh to retry.
+                </span>
+              ) : null}
+              {meta && meta.zipOnlyMode ? (
+                <span>
+                  {" "}
+                  This deployment uses ZIP centroids only (fast mode for Vercel time limits).
+                  For street-level pins, set MAP_STREET_GEOCODE=1 and use a plan with longer
+                  function timeouts (e.g. Vercel Pro).
+                </span>
               ) : null}
             </p>
             {meta && markers.length > 0 ? (
@@ -207,8 +267,11 @@ export default function MapClient() {
 
         {loading ? (
           <p className={styles.meta}>Loading map…</p>
-        ) : markers.length === 0 ? (
-          <p className={styles.meta}>No customers with valid US ZIP codes to show.</p>
+        ) : error ? null : markers.length === 0 ? (
+          <p className={styles.meta}>
+            No customers with locations to show. Add customers with a US ZIP code, or fix rows
+            that could not be geocoded.
+          </p>
         ) : (
           <div
             ref={mapRef}

@@ -242,6 +242,9 @@ function zipCentroid(customer: Customer): { lat: number; lng: number } | null {
 
 const CENSUS_BATCH = 8;
 
+/** Stop calling Nominatim once this wall time is reached (Census + Nominatim + ZIP). Keeps responses under typical serverless limits (e.g. Vercel 120s). */
+const MAP_GEOCODE_WALL_BUDGET_MS = 105_000;
+
 function cacheKey(customer: Customer): string {
   return [
     normalizeAddressLine1(customer.addressLine1),
@@ -266,10 +269,9 @@ function pushPin(
 }
 
 /**
- * Street-level pins: Census (one-line batch → structured → cleaned one-line), then Nominatim
- * (structured → free-text), then ZIP centroid. Cached in-memory per server instance.
+ * ZIP-centroid only — fast, no network (fits Vercel Hobby ~10s limits with large customer lists).
  */
-export async function geocodeAllCustomersForMap(customers: Customer[]): Promise<{
+function geocodeAllCustomersZipOnlyMode(customers: Customer[]): {
   pins: Array<{
     customer: Customer;
     lat: number;
@@ -278,7 +280,9 @@ export async function geocodeAllCustomersForMap(customers: Customer[]): Promise<
   }>;
   skipped: number;
   zipFallbackCount: number;
-}> {
+  nominatimCutShort: boolean;
+  zipOnlyMode: boolean;
+} {
   const pins: Array<{
     customer: Customer;
     lat: number;
@@ -287,6 +291,80 @@ export async function geocodeAllCustomersForMap(customers: Customer[]): Promise<
   }> = [];
   let skipped = 0;
   let zipFallbackCount = 0;
+
+  for (const c of customers) {
+    const key = cacheKey(c);
+    if (resultCache.has(key)) {
+      const cached = resultCache.get(key);
+      if (cached) {
+        pins.push({
+          customer: c,
+          lat: cached.lat,
+          lng: cached.lng,
+          source: cached.source,
+        });
+      }
+      continue;
+    }
+    const z = zipCentroid(c);
+    if (z) {
+      const r: MapPinResult = { ...z, source: "zip" };
+      resultCache.set(key, r);
+      pins.push({ customer: c, lat: r.lat, lng: r.lng, source: "zip" });
+      zipFallbackCount += 1;
+    } else {
+      resultCache.set(key, null);
+      skipped += 1;
+    }
+  }
+
+  return {
+    pins,
+    skipped,
+    zipFallbackCount,
+    nominatimCutShort: false,
+    zipOnlyMode: true,
+  };
+}
+
+export type GeocodeAllCustomersResult = {
+  pins: Array<{
+    customer: Customer;
+    lat: number;
+    lng: number;
+    source: MapPinSource;
+  }>;
+  skipped: number;
+  zipFallbackCount: number;
+  nominatimCutShort: boolean;
+  zipOnlyMode: boolean;
+};
+
+/**
+ * Street-level pins: Census (one-line batch → structured → cleaned one-line), then Nominatim
+ * (structured → free-text), then ZIP centroid. Cached in-memory per server instance.
+ *
+ * Pass `zipOnly: true` for hosting with strict time limits (e.g. Vercel Hobby).
+ */
+export async function geocodeAllCustomersForMap(
+  customers: Customer[],
+  options?: { zipOnly?: boolean },
+): Promise<GeocodeAllCustomersResult> {
+  if (options?.zipOnly) {
+    return geocodeAllCustomersZipOnlyMode(customers);
+  }
+
+  const pins: Array<{
+    customer: Customer;
+    lat: number;
+    lng: number;
+    source: MapPinSource;
+  }> = [];
+  let skipped = 0;
+  let zipFallbackCount = 0;
+  let nominatimCutShort = false;
+
+  const startedAt = Date.now();
 
   const phase1Misses: Customer[] = [];
 
@@ -351,8 +429,43 @@ export async function geocodeAllCustomersForMap(customers: Customer[]): Promise<
   }
   working = afterCleaned;
 
-  // Phase 4: Nominatim (sequential — OSM policy)
-  for (const c of working) {
+  const pinZipOrSkipOnly = (c: Customer): void => {
+    const key = cacheKey(c);
+    if (resultCache.has(key)) {
+      const cached = resultCache.get(key);
+      if (cached) {
+        pins.push({
+          customer: c,
+          lat: cached.lat,
+          lng: cached.lng,
+          source: cached.source,
+        });
+      }
+      return;
+    }
+    const z = zipCentroid(c);
+    if (z) {
+      const r: MapPinResult = { ...z, source: "zip" };
+      resultCache.set(key, r);
+      pins.push({ customer: c, lat: r.lat, lng: r.lng, source: "zip" });
+      zipFallbackCount += 1;
+    } else {
+      resultCache.set(key, null);
+      skipped += 1;
+    }
+  };
+
+  // Phase 4: Nominatim (sequential — OSM policy), then ZIP centroid
+  for (let i = 0; i < working.length; i += 1) {
+    const c = working[i];
+    if (Date.now() - startedAt > MAP_GEOCODE_WALL_BUDGET_MS) {
+      nominatimCutShort = true;
+      for (let j = i; j < working.length; j += 1) {
+        pinZipOrSkipOnly(working[j]);
+      }
+      break;
+    }
+
     const key = cacheKey(c);
     if (resultCache.has(key)) {
       const cached = resultCache.get(key);
@@ -395,5 +508,11 @@ export async function geocodeAllCustomersForMap(customers: Customer[]): Promise<
     }
   }
 
-  return { pins, skipped, zipFallbackCount };
+  return {
+    pins,
+    skipped,
+    zipFallbackCount,
+    nominatimCutShort,
+    zipOnlyMode: false,
+  };
 }
