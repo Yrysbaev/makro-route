@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import { useRouter } from "next/navigation";
@@ -19,17 +19,53 @@ type MapMarker = {
   source?: MapPinSource;
 };
 
-const SOURCE_LABEL: Record<MapPinSource, string> = {
-  census: "Street (US Census)",
-  nominatim: "Street (OpenStreetMap)",
-  zip: "ZIP area (approximate)",
+type ZipBucket = {
+  zip: string;
+  lat: number;
+  lng: number;
+  count: number;
 };
 
-const SOURCE_COLOR: Record<MapPinSource, string> = {
-  census: "#16a34a",
-  nominatim: "#2563eb",
-  zip: "#d97706",
-};
+function normalizeZip(zip: string): string {
+  return zip.trim().replace(/\D/g, "").slice(0, 5);
+}
+
+/** One point per US ZIP; position is mean of all customer pins in that ZIP. */
+function aggregateByZip(markers: MapMarker[]): ZipBucket[] {
+  const map = new Map<string, { sumLat: number; sumLng: number; count: number }>();
+  for (const m of markers) {
+    const z = normalizeZip(m.zip);
+    if (!/^\d{5}$/.test(z)) continue;
+    const cur = map.get(z) ?? { sumLat: 0, sumLng: 0, count: 0 };
+    cur.sumLat += m.lat;
+    cur.sumLng += m.lng;
+    cur.count += 1;
+    map.set(z, cur);
+  }
+  return [...map.entries()]
+    .map(([zip, v]) => ({
+      zip,
+      lat: v.sumLat / v.count,
+      lng: v.sumLng / v.count,
+      count: v.count,
+    }))
+    .sort((a, b) => a.zip.localeCompare(b.zip));
+}
+
+/** Lighter = fewer locations in ZIP; darker = more (same scale across all ZIPs). */
+function densityFillColor(count: number, min: number, max: number): string {
+  if (max <= 0) return "#e5e7eb";
+  const t = max === min ? 1 : (count - min) / (max - min);
+  const hue = 48 - t * 26;
+  const sat = 28 + t * 58;
+  const light = 90 - t * 58;
+  return `hsl(${hue}, ${sat}%, ${light}%)`;
+}
+
+function densityRadius(count: number, max: number): number {
+  if (max <= 0) return 8;
+  return 6 + Math.sqrt(count / max) * 22;
+}
 
 export default function MapClient() {
   const router = useRouter();
@@ -46,8 +82,16 @@ export default function MapClient() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
 
-  const initMap = useCallback((data: MapMarker[]) => {
-    if (!mapRef.current || data.length === 0) return;
+  const zipBuckets = useMemo(() => aggregateByZip(markers), [markers]);
+
+  const densityRange = useMemo(() => {
+    if (zipBuckets.length === 0) return { min: 0, max: 0 };
+    const counts = zipBuckets.map((b) => b.count);
+    return { min: Math.min(...counts), max: Math.max(...counts) };
+  }, [zipBuckets]);
+
+  const initMap = useCallback((buckets: ZipBucket[], minC: number, maxC: number) => {
+    if (!mapRef.current || buckets.length === 0) return;
 
     if (mapInstanceRef.current) {
       mapInstanceRef.current.remove();
@@ -61,21 +105,20 @@ export default function MapClient() {
 
     const bounds = L.latLngBounds([]);
 
-    for (const m of data) {
-      const source: MapPinSource = m.source ?? "zip";
-      const fill = SOURCE_COLOR[source];
-      const marker = L.circleMarker([m.lat, m.lng], {
-        radius: 9,
+    for (const b of buckets) {
+      const fill = densityFillColor(b.count, minC, maxC);
+      const radius = densityRadius(b.count, maxC);
+      const marker = L.circleMarker([b.lat, b.lng], {
+        radius,
         color: "#ffffff",
         weight: 2,
         fillColor: fill,
         fillOpacity: 0.92,
       }).addTo(map);
-      const label = SOURCE_LABEL[source];
       marker.bindPopup(
-        `<strong>${escapeHtml(m.name)}</strong><br>${escapeHtml(m.city)}, ${escapeHtml(m.state)} ${escapeHtml(m.zip)}<br><span style="font-size:12px;opacity:.85">${escapeHtml(label)}</span>`,
+        `<strong>ZIP ${escapeHtml(b.zip)}</strong><br>${b.count} customer${b.count === 1 ? "" : "s"} in this ZIP`,
       );
-      bounds.extend([m.lat, m.lng]);
+      bounds.extend([b.lat, b.lng]);
     }
 
     if (bounds.isValid()) {
@@ -88,7 +131,6 @@ export default function MapClient() {
   useEffect(() => {
     let cancelled = false;
     const controller = new AbortController();
-    /** Street geocoding + large Sheets can exceed 2 min; ZIP-only is usually seconds. */
     const MAP_FETCH_TIMEOUT_MS = 300_000;
     const timeoutId = window.setTimeout(() => controller.abort(), MAP_FETCH_TIMEOUT_MS);
 
@@ -167,8 +209,8 @@ export default function MapClient() {
   }, [router]);
 
   useEffect(() => {
-    if (!loading && markers.length > 0) {
-      initMap(markers);
+    if (!loading && zipBuckets.length > 0) {
+      initMap(zipBuckets, densityRange.min, densityRange.max);
     }
     return () => {
       if (mapInstanceRef.current) {
@@ -176,7 +218,9 @@ export default function MapClient() {
         mapInstanceRef.current = null;
       }
     };
-  }, [loading, markers, initMap]);
+  }, [loading, zipBuckets, densityRange.min, densityRange.max, initMap]);
+
+  const canShowMap = !loading && !error && zipBuckets.length > 0;
 
   return (
     <div className={styles.page}>
@@ -185,83 +229,62 @@ export default function MapClient() {
           <div>
             <h1>Customer map</h1>
             <p className={styles.meta}>
-              {meta
-                ? `${markers.length} pins on the map (of ${meta.total} customers).`
-                : ""}
+              {meta && markers.length > 0 ? (
+                <>
+                  {zipBuckets.length} ZIP areas · {markers.length} locations plotted
+                  {meta.total !== markers.length ? ` (of ${meta.total} customers)` : ""}.
+                  Circle color: lighter = fewer locations in that ZIP, darker = more. Size also
+                  reflects volume slightly.
+                </>
+              ) : meta ? (
+                ""
+              ) : null}
               {meta && meta.zipOnlyMode ? (
                 <span>
                   {" "}
-                  Pins are placed using each customer’s ZIP code from your data (center of
-                  that ZIP area — not the exact street). All orange pins are
-                  expected in this mode. Street address geocoding is turned off on the server
-                  so the map loads quickly on Vercel. To try Census/OpenStreetMap street pins
-                  instead, set env <code>MAP_STREET_GEOCODE=1</code> and use a hosting plan
-                  with a long enough function timeout (e.g. Vercel Pro).
+                  Pin positions use ZIP centroids (fast mode). Set{" "}
+                  <code>MAP_STREET_GEOCODE=1</code> for street-level coordinates.
                 </span>
-              ) : (
-                <>
-                  {meta
-                    ? " Green: street-level (US Census). Blue: street-level (OpenStreetMap). Orange: ZIP centroid only (approximate)."
-                    : ""}
-                  {meta && meta.zipFallbackCount > 0 ? (
-                    <span>
-                      {" "}
-                      {meta.zipFallbackCount === 1
-                        ? "One location uses a ZIP centroid only."
-                        : `${meta.zipFallbackCount} locations use ZIP centroids only.`}
-                    </span>
-                  ) : null}
-                  {meta && meta.nominatimCutShort ? (
-                    <span>
-                      {" "}
-                      Street lookup (OpenStreetMap) stopped early for some rows due to a time
-                      limit; those use ZIP centroids instead. Refresh to retry.
-                    </span>
-                  ) : null}
-                </>
-              )}
+              ) : null}
+              {meta && !meta.zipOnlyMode && meta.zipFallbackCount > 0 ? (
+                <span>
+                  {" "}
+                  {meta.zipFallbackCount === 1
+                    ? "One location uses a ZIP centroid only."
+                    : `${meta.zipFallbackCount} locations use ZIP centroids only.`}
+                </span>
+              ) : null}
+              {meta && !meta.zipOnlyMode && meta.nominatimCutShort ? (
+                <span>
+                  {" "}
+                  Street lookup stopped early for some rows; those use ZIP centroids.
+                </span>
+              ) : null}
               {meta && meta.skipped > 0 ? (
                 <span> {meta.skipped} could not be placed (missing or invalid US ZIP).</span>
               ) : null}
             </p>
-            {meta && markers.length > 0 ? (
-              <p className={styles.meta} style={{ marginTop: 4 }}>
+            {canShowMap ? (
+              <p className={styles.meta} style={{ marginTop: 8 }}>
+                <span style={{ marginRight: 10, verticalAlign: "middle" }}>Fewer</span>
                 <span
                   style={{
                     display: "inline-block",
-                    width: 10,
-                    height: 10,
-                    borderRadius: "50%",
-                    background: SOURCE_COLOR.census,
-                    marginRight: 6,
+                    width: 180,
+                    height: 12,
+                    borderRadius: 4,
                     verticalAlign: "middle",
+                    border: "1px solid #cbd5e1",
+                    background:
+                      "linear-gradient(to right, hsl(48, 28%, 90%), hsl(22, 86%, 32%))",
                   }}
                 />
-                Census
-                <span
-                  style={{
-                    display: "inline-block",
-                    width: 10,
-                    height: 10,
-                    borderRadius: "50%",
-                    background: SOURCE_COLOR.nominatim,
-                    margin: "0 6px 0 12px",
-                    verticalAlign: "middle",
-                  }}
-                />
-                OSM
-                <span
-                  style={{
-                    display: "inline-block",
-                    width: 10,
-                    height: 10,
-                    borderRadius: "50%",
-                    background: SOURCE_COLOR.zip,
-                    margin: "0 6px 0 12px",
-                    verticalAlign: "middle",
-                  }}
-                />
-                ZIP only
+                <span style={{ marginLeft: 10, verticalAlign: "middle" }}>More</span>
+                {densityRange.max > 0 ? (
+                  <span style={{ marginLeft: 12, opacity: 0.85 }}>
+                    Range: {densityRange.min}–{densityRange.max} per ZIP
+                  </span>
+                ) : null}
               </p>
             ) : null}
           </div>
@@ -282,6 +305,10 @@ export default function MapClient() {
           <p className={styles.meta}>
             No customers with locations to show. Add customers with a US ZIP code, or fix rows
             that could not be geocoded.
+          </p>
+        ) : zipBuckets.length === 0 ? (
+          <p className={styles.meta}>
+            No valid US ZIP codes to group. Check that customer rows include 5-digit ZIPs.
           </p>
         ) : (
           <div
