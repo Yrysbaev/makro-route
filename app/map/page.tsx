@@ -1,13 +1,11 @@
 import { redirect } from "next/navigation";
-import dynamic from "next/dynamic";
 import { getCurrentSessionUser } from "@/lib/auth";
-
-const MapClient = dynamic(() => import("./map-client"), { ssr: false });
+import MapPageLoader from "./map-page-loader";
 
 export default async function MapPage() {
   const user = await getCurrentSessionUser();
   if (!user) {
     redirect("/login");
   }
-  return <MapClient />;
+  return <MapPageLoader />;
 }
