@@ -52,14 +52,13 @@ function aggregateByZip(markers: MapMarker[]): ZipBucket[] {
     .sort((a, b) => a.zip.localeCompare(b.zip));
 }
 
-/** Lighter = fewer locations in ZIP; darker = more (same scale across all ZIPs). */
+/** Lighter green = fewer locations in ZIP; darker green = more (same scale across all ZIPs). */
 function densityFillColor(count: number, min: number, max: number): string {
   if (max <= 0) return "#e5e7eb";
   const t = max === min ? 1 : (count - min) / (max - min);
-  const hue = 48 - t * 26;
-  const sat = 28 + t * 58;
+  const sat = 22 + t * 58;
   const light = 90 - t * 58;
-  return `hsl(${hue}, ${sat}%, ${light}%)`;
+  return `hsl(142, ${sat}%, ${light}%)`;
 }
 
 function densityRadius(count: number, max: number): number {
@@ -233,7 +232,7 @@ export default function MapClient() {
                 <>
                   {zipBuckets.length} ZIP areas · {markers.length} locations plotted
                   {meta.total !== markers.length ? ` (of ${meta.total} customers)` : ""}.
-                  Circle color: lighter = fewer locations in that ZIP, darker = more. Size also
+                  Green shading: lighter = fewer locations in that ZIP, darker = more. Size also
                   reflects volume slightly.
                 </>
               ) : meta ? (
@@ -276,7 +275,7 @@ export default function MapClient() {
                     verticalAlign: "middle",
                     border: "1px solid #cbd5e1",
                     background:
-                      "linear-gradient(to right, hsl(48, 28%, 90%), hsl(22, 86%, 32%))",
+                      "linear-gradient(to right, hsl(142, 28%, 92%), hsl(145, 72%, 24%))",
                   }}
                 />
                 <span style={{ marginLeft: 10, verticalAlign: "middle" }}>More</span>
